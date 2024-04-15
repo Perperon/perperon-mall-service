@@ -1,11 +1,13 @@
 package com.perperon.mall.controller;
 
+import com.perperon.mall.pojo.Account;
+import com.perperon.mall.service.AccountService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * @author dupengcheng
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "账户管理模块")
 public class AccountController {
 
+    @Autowired
+    private AccountService accountServiceImpl;
+
     @GetMapping("/login")
     @ApiOperation(value = "登录", notes = "登录")
     public String login() {
@@ -24,10 +29,15 @@ public class AccountController {
     }
 
 
-    @PostMapping(value = "/listPage")
+    @GetMapping(value = "/listPage")
     @ApiOperation(value = "查询用户", notes = "查询用户")
-    public Object listPage() {
+    public Object listPage(Map<String,Object> params) {
+        return accountServiceImpl.listByPage(params);
+    }
 
-        return null;
+    @PostMapping(value = "/create")
+    @ApiOperation(value = "新增用户", notes = "新增用户")
+    public Object create(@RequestBody Account account) {
+        return accountServiceImpl.create(account);
     }
 }

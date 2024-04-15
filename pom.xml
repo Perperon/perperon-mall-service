@@ -12,6 +12,7 @@
         <module>perperon-service-web</module>
         <module>perperon-service-gateway</module>
         <module>perperon-common</module>
+        <module>perperon-pojo</module>
     </modules>
 
     <parent>
@@ -32,7 +33,6 @@
         <pagehelper.version>5.3.0</pagehelper.version>
         <druid.version>1.2.9</druid.version>
         <hutool.version>5.8.0</hutool.version>
-        <mybatis-generator.version>1.4.1</mybatis-generator.version>
         <mybatis.version>3.5.9</mybatis.version>
         <mysql-connector.version>8.0.29</mysql-connector.version>
         <spring-data-commons.version>2.7.0</spring-data-commons.version>
@@ -41,6 +41,7 @@
         <nimbus-jose-jwt.version>9.23</nimbus-jose-jwt.version>
         <knife4j.version>3.0.3</knife4j.version>
         <common.version>1.0-SNAPSHOT</common.version>
+        <tk.mybatis.version>2.1.3</tk.mybatis.version>
     </properties>
     <dependencies>
         <dependency>
@@ -76,6 +77,12 @@
             <dependency>
                 <groupId>com.perperon.mall</groupId>
                 <artifactId>perperon-common</artifactId>
+                <version>${common.version}</version>
+            </dependency>
+            <!--mall实体类模块-->
+            <dependency>
+                <groupId>com.perperon.mall</groupId>
+                <artifactId>perperon-pojo</artifactId>
                 <version>${common.version}</version>
             </dependency>
             <!--Spring Cloud 相关依赖-->
@@ -130,6 +137,12 @@
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>
                 <version>${mybatis.version}</version>
+            </dependency>
+            <!--tk.mybatis插件-->
+            <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper-spring-boot-starter</artifactId>
+                <version>${tk.mybatis.version}</version>
             </dependency>
             <!--Mysql数据库驱动-->
             <dependency>

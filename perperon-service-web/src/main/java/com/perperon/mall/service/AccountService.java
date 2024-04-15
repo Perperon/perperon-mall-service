@@ -1,5 +1,8 @@
 package com.perperon.mall.service;
 
+import com.perperon.mall.common.response.CommonResult;
+import com.perperon.mall.pojo.Account;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -8,6 +11,8 @@ import java.util.Map;
  * @apiNote
  */
 public interface AccountService {
-
-    List<Account> listByPage(Map<String,Object> params);
+    CommonResult<List<Account>> listByPage(Map<String,Object> params);
+    CommonResult<Account> create(Account account);
+    CommonResult<Account> update(Account account);
+    CommonResult<Account> delete(String id);
 }
