@@ -16,7 +16,7 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.7.6</spring-boot.version>
+        <spring-boot.version>2.6.4</spring-boot.version>
         <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
         <spring-cloud.version>2021.0.5</spring-cloud.version>
         <pagehelper-starter.version>1.4.2</pagehelper-starter.version>
@@ -30,6 +30,7 @@
         <jjwt.version>0.9.1</jjwt.version>
         <logstash-logback.version>5.3</logstash-logback.version>
         <nimbus-jose-jwt.version>9.23</nimbus-jose-jwt.version>
+        <knife4j.version>3.0.3</knife4j.version>
     </properties>
     <dependencies>
         <dependency>
@@ -143,6 +144,12 @@
                 <groupId>net.logstash.logback</groupId>
                 <artifactId>logstash-logback-encoder</artifactId>
                 <version>${logstash-logback.version}</version>
+            </dependency>
+            <!--Knife4j API文档生产工具-->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-micro-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

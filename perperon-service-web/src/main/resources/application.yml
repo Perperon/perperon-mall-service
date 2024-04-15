@@ -1,6 +1,9 @@
 server:
   port: 54001
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 #  rabbitmq: #rabbitmq相关配置
 #    host: localhost
 #    port: 5672
