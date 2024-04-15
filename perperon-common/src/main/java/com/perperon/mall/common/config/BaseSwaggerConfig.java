@@ -1,7 +1,6 @@
 package com.perperon.mall.common.config;
 
 import com.perperon.mall.common.domain.SwaggerProperties;
-import io.swagger.annotations.Api;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
@@ -35,7 +34,7 @@ public abstract class BaseSwaggerConfig {
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo(swaggerProperties))
                 .select()
-                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
+                .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getApiBasePackage()))
                 .paths(PathSelectors.any())
                 .build();
         if (swaggerProperties.isEnableSecurity()) {

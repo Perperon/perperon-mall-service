@@ -25,7 +25,7 @@ public class SwaggerConfig extends BaseSwaggerConfig {
                 .description("perperon-mall后台相关接口文档")
                 .contactName("perperon")
                 .version("1.0")
-                .enableSecurity(true)
+                .enableSecurity(false)
                 .build();
     }
 

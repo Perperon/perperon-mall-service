@@ -1,13 +1,16 @@
+/*
 package com.perperon.mall.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
+*/
 /**
  * @author dupengcheng
  * @date 2024-04-12
  * @apiNote
- */
+ *//*
+
 @Configuration
 public class SpringMvcSupport extends WebMvcConfigurationSupport {
     @Override
@@ -19,3 +22,4 @@ public class SpringMvcSupport extends WebMvcConfigurationSupport {
         super.addResourceHandlers(registry);
     }
 }
+*/

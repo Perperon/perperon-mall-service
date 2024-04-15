@@ -10,13 +10,22 @@
 
     <modules>
         <module>perperon-service-web</module>
+        <module>perperon-service-gateway</module>
+        <module>perperon-common</module>
     </modules>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.6</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.6.4</spring-boot.version>
+        <spring-boot.version>2.7.6</spring-boot.version>
         <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
         <spring-cloud.version>2021.0.5</spring-cloud.version>
         <pagehelper-starter.version>1.4.2</pagehelper-starter.version>
@@ -31,6 +40,7 @@
         <logstash-logback.version>5.3</logstash-logback.version>
         <nimbus-jose-jwt.version>9.23</nimbus-jose-jwt.version>
         <knife4j.version>3.0.3</knife4j.version>
+        <common.version>1.0-SNAPSHOT</common.version>
     </properties>
     <dependencies>
         <dependency>
@@ -62,6 +72,12 @@
     </dependencies>
     <dependencyManagement>
         <dependencies>
+            <!--mall通用模块-->
+            <dependency>
+                <groupId>com.perperon.mall</groupId>
+                <artifactId>perperon-common</artifactId>
+                <version>${common.version}</version>
+            </dependency>
             <!--Spring Cloud 相关依赖-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
@@ -149,6 +165,11 @@
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-micro-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
             </dependency>
         </dependencies>

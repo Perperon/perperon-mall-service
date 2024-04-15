@@ -3,55 +3,41 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.perperon</groupId>
-    <artifactId>perperon-service-web</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>com.perperon.mall</groupId>
+    <artifactId>perperon-pojo</artifactId>
     <packaging>jar</packaging>
+    <version>1.0-SNAPSHOT</version>
 
-    <name>perperon-service-web</name>
-    <description>web mall</description>
-
+    <name>perperon-pojo</name>
+    <description>perperon-pojo</description>
     <parent>
-        <groupId>com.perpeon</groupId>
         <artifactId>perperon-service</artifactId>
+        <groupId>com.perpeon</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bootstrap</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-okhttp</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.perperon.mall</groupId>
-            <artifactId>perperon-common</artifactId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
@@ -68,8 +54,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>com.perperon.mall.PerperonServiceWebApplication</mainClass>
+                    <mainClass>com.perperon.mall.PerperonPojoApplication</mainClass>
                     <skip>true</skip>
                 </configuration>
                 <executions>
