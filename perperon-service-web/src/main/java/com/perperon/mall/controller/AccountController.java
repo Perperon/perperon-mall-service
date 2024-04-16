@@ -31,7 +31,7 @@ public class AccountController {
 
     @GetMapping(value = "/listPage")
     @ApiOperation(value = "查询用户", notes = "查询用户")
-    public Object listPage(Map<String,Object> params) {
+    public Object listPage(@RequestParam Map<String,Object> params) {
         return accountServiceImpl.listByPage(params);
     }
 

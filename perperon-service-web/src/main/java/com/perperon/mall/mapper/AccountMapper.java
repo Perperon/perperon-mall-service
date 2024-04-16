@@ -1,11 +1,7 @@
 package com.perperon.mall.mapper;
 
 import com.perperon.mall.pojo.Account;
-import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author dupengcheng
