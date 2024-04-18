@@ -17,13 +17,11 @@ public class GatewayConfig {
             // 创建路由构建器
             RouteLocatorBuilder.Builder routes = routeLocatorBuilder.routes();
             // 定义路由规则
-            routes.route("perperon-service-web",
+            routes.route("baidu-test",
                     // 请求路径匹配 "/guonei"
                     r -> r.path("/guonei")
-                            // 目标URI为 "http://www.baidu.com"
-                            .uri("http://www.baidu.com"))
-                            // 构建并返回该路由规则
-                            .build();
+                            // 目标URI为 "https://www.baidu.com"
+                            .uri("http://www.baidu.com"));
 
             // 构建并返回整个路由定位器
             return routes.build();
