@@ -13,6 +13,7 @@
         <module>perperon-service-gateway</module>
         <module>perperon-common</module>
         <module>perperon-pojo</module>
+        <module>perperon-test</module>
     </modules>
 
     <parent>
