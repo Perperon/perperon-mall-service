@@ -43,6 +43,7 @@
         <knife4j.version>3.0.3</knife4j.version>
         <common.version>1.0-SNAPSHOT</common.version>
         <tk.mybatis.version>4.2.3</tk.mybatis.version>
+        <fastjson.version>1.2.62</fastjson.version>
     </properties>
     <dependencies>
         <dependency>
@@ -185,6 +186,11 @@
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
