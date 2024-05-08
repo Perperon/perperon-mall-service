@@ -1,15 +1,13 @@
 package com.perperon.mall.controller;
 
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.extra.qrcode.QrCodeUtil;
 import cn.hutool.http.server.HttpServerResponse;
-import org.iherus.codegen.Codectx;
-import org.iherus.codegen.qrcode.QrcodeGenerator;
-import org.iherus.codegen.qrcode.SimpleQrcodeGenerator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.io.OutputStream;
 
 /**
  * @author dupengcheng
