@@ -44,6 +44,7 @@
         <common.version>1.0-SNAPSHOT</common.version>
         <tk.mybatis.version>4.2.3</tk.mybatis.version>
         <fastjson.version>1.2.62</fastjson.version>
+        <zxing.version>3.5.1</zxing.version>
     </properties>
     <dependencies>
         <dependency>
@@ -134,6 +135,12 @@
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>core</artifactId>
+                <version>${zxing.version}</version>
+            </dependency>
+
             <!-- MyBatis-->
             <dependency>
                 <groupId>org.mybatis</groupId>
