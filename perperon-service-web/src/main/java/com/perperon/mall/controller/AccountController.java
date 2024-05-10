@@ -5,6 +5,7 @@ import com.perperon.mall.service.AccountService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -22,9 +23,13 @@ public class AccountController {
     @Autowired
     private AccountService accountServiceImpl;
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     @GetMapping("/login")
     @ApiOperation(value = "登录", notes = "登录")
-    public String login() {
+    public String login(@RequestBody Account account) {
+        userDetailsService.loadUserByUsername(account.getUsername());
         return "login";
     }
 

@@ -51,4 +51,9 @@ public class AccountServiceImpl implements AccountService {
         accountMapper.deleteByPrimaryKey(id);
         return CommonResult.success(null,"删除成功！");
     }
+
+    public CommonResult<Account> login(Account account) {
+
+        return null;
+    }
 }
