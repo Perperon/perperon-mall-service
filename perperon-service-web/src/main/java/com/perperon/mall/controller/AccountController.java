@@ -1,11 +1,11 @@
 package com.perperon.mall.controller;
 
+import com.perperon.mall.common.response.CommonResult;
 import com.perperon.mall.pojo.Account;
 import com.perperon.mall.service.AccountService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -23,14 +23,12 @@ public class AccountController {
     @Autowired
     private AccountService accountServiceImpl;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     @ApiOperation(value = "登录", notes = "登录")
-    public String login(@RequestBody Account account) {
-        userDetailsService.loadUserByUsername(account.getUsername());
-        return "login";
+    public Object login(@RequestBody Account account) {
+        CommonResult<Account> login = accountServiceImpl.login(account);
+        return login;
     }
 
 

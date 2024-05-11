@@ -1,9 +1,16 @@
 package com.perperon.mall.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.perperon.mall.common.response.CommonResult;
+import com.perperon.mall.common.service.RedisService;
+import com.perperon.mall.entity.AccountUser;
 import com.perperon.mall.mapper.AccountMapper;
 import com.perperon.mall.pojo.Account;
 import com.perperon.mall.service.AccountService;
+import com.perperon.mall.utils.JwtTokenUtil;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -24,6 +31,13 @@ import java.util.Map;
 public class AccountServiceImpl implements AccountService {
     @Resource
     private AccountMapper accountMapper;
+    @Resource
+    private AuthenticationManager authenticationManager;
+    @Resource
+    JwtTokenUtil jwtTokenUtil;
+    @Resource
+    RedisService redisService;
+
     @Override
     public CommonResult<List<Account>> listByPage(Map<String, Object> params) {
         Example example = new Example(Account.class);
@@ -53,7 +67,15 @@ public class AccountServiceImpl implements AccountService {
     }
 
     public CommonResult<Account> login(Account account) {
-
-        return null;
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(account.getUsername(), account.getPassword());
+        Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+        if(ObjectUtil.isNull(authenticate)){
+            throw new RuntimeException("登录失败！");
+        }
+        //认证成功，获取用户信息，生成jwt
+        AccountUser accountUser = (AccountUser)authenticate.getPrincipal();
+        String jwt = jwtTokenUtil.generateToken(accountUser);
+        redisService.set("login:"+accountUser.getAccount().getId(),jwt);
+        return CommonResult.success(account,"登录成功！");
     }
 }

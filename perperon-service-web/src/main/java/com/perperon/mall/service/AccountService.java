@@ -15,4 +15,5 @@ public interface AccountService {
     CommonResult<Account> create(Account account);
     CommonResult<Account> update(Account account);
     CommonResult<Account> delete(String id);
+    CommonResult<Account> login(Account account);
 }
