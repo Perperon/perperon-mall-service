@@ -52,6 +52,10 @@
             <artifactId>perperon-pojo</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.perperon.mall</groupId>
+            <artifactId>perperon-security</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
         </dependency>
@@ -60,16 +64,8 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
     </dependencies>
 

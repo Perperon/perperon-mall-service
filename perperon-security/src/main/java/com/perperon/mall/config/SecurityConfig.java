@@ -1,5 +1,6 @@
-package com.perperon.mall.security;
+package com.perperon.mall.config;
 
+import com.perperon.mall.fliter.JwtAuthenticationTokenFilter;
 import com.perperon.mall.utils.JwtTokenUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +33,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
+        return new JwtAuthenticationTokenFilter();
     }
 
     @Bean

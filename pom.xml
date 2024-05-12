@@ -11,6 +11,7 @@
     <modules>
         <module>perperon-service-web</module>
         <module>perperon-service-gateway</module>
+        <module>perperon-security</module>
         <module>perperon-common</module>
         <module>perperon-pojo</module>
         <module>perperon-test</module>
@@ -86,6 +87,12 @@
             <dependency>
                 <groupId>com.perperon.mall</groupId>
                 <artifactId>perperon-pojo</artifactId>
+                <version>${common.version}</version>
+            </dependency>
+            <!--mall认证和授权类模块-->
+            <dependency>
+                <groupId>com.perperon.mall</groupId>
+                <artifactId>perperon-security</artifactId>
                 <version>${common.version}</version>
             </dependency>
             <!--Spring Cloud 相关依赖-->
