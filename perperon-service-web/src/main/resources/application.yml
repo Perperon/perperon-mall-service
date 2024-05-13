@@ -31,12 +31,13 @@ jwt:
   expiration: 604800 #JWT的超期限时间(60*60*24*7)
   tokenHead: 'Bearer '  #JWT负载中拿到开头
 
-#redis:
-#  database: mall
-#  key:
-#    admin: 'web:admin'
-#  expire:
-#    common: 86400 # 24小时
+redis:
+  database: perperon
+  key:
+    admin: 'web:admin'
+    token: 'web:jwt'
+  expire:
+    common: 86400 # 24小时
 #feign:
 #  okhttp:
 #    enabled: true
