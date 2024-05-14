@@ -17,6 +17,17 @@
         a.id, a.username, a.password, a.icon, a.email, a.nick_name, a.remark, a.created, a.login_time, a.status
     </sql>
     <select id="selectByUsername" parameterType="string" resultMap="BaseResultMap">
-        select <include refid="basic_list"></include> from perperon_account as a where username = #{username}
+        select <include refid="basic_list"/>
+        from perperon_account as a
+        where username = #{username}
+    </select>
+    <select id="listByPage" parameterType="map" resultMap="BaseResultMap">
+        select <include refid="basic_list"/>
+        from perperon_account as a
+        <where>
+            <if test="username != null and username != ''">
+               and a.username like concat('%', #{username}, '%')
+            </if>
+        </where>
     </select>
 </mapper>

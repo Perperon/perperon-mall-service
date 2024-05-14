@@ -3,6 +3,7 @@ package com.perperon.mall.controller;
 import com.perperon.mall.common.response.CommonResult;
 import com.perperon.mall.pojo.Account;
 import com.perperon.mall.service.AccountService;
+import com.perperon.mall.service.BaseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +19,21 @@ import java.util.Map;
 @RestController
 @RequestMapping("/account")
 @Api(tags = "账户管理模块")
-public class AccountController {
+public class AccountController extends BaseController<Account>{
 
     @Autowired
-    private AccountService accountServiceImpl;
+    private AccountService accountService;
 
+
+    @Override
+    public BaseService<Account> getService() {
+        return accountService;
+    }
 
     @PostMapping("/login")
     @ApiOperation(value = "登录", notes = "登录")
     public Object login(@RequestBody Account account) {
-        CommonResult<Account> login = accountServiceImpl.login(account);
+        CommonResult<Account> login = accountService.login(account);
         return login;
     }
 
@@ -35,12 +41,12 @@ public class AccountController {
     @GetMapping(value = "/listPage")
     @ApiOperation(value = "查询用户", notes = "查询用户")
     public Object listPage(@RequestParam Map<String,Object> params) {
-        return accountServiceImpl.listByPage(params);
+        return accountService.listByPage(params);
     }
 
-    @PostMapping(value = "/create")
-    @ApiOperation(value = "新增用户", notes = "新增用户")
-    public Object create(@RequestBody Account account) {
-        return accountServiceImpl.create(account);
+    @PostMapping(value = "/logout")
+    @ApiOperation(value = "退出登录", notes = "退出登录")
+    public Object logout(@RequestBody Account account) {
+        return accountService.logout(account);
     }
 }

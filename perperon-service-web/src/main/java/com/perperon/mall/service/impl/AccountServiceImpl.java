@@ -1,6 +1,7 @@
 package com.perperon.mall.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.github.pagehelper.PageInfo;
 import com.perperon.mall.cache.RedisCache;
 import com.perperon.mall.common.response.CommonResult;
 import com.perperon.mall.entity.AccountUser;
@@ -10,14 +11,14 @@ import com.perperon.mall.service.AccountService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.common.Mapper;
 
 import javax.annotation.Resource;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,7 +28,7 @@ import java.util.Map;
  */
 @Service
 @Transactional(readOnly = true)
-public class AccountServiceImpl implements AccountService {
+public class AccountServiceImpl  implements AccountService {
     @Resource
     private AccountMapper accountMapper;
     @Resource
@@ -36,31 +37,13 @@ public class AccountServiceImpl implements AccountService {
     RedisCache redisCache;
 
     @Override
-    public CommonResult<List<Account>> listByPage(Map<String, Object> params) {
-        Example example = new Example(Account.class);
-        example.createCriteria().andLike("username", params.get("username").toString());
-        return CommonResult.success(accountMapper.selectByExample(example));
+    public Mapper<Account> getMapper() {
+        return accountMapper;
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ,propagation = Propagation.REQUIRED)
     @Override
-    public CommonResult<Account> create(Account account) {
-        int i = accountMapper.insert(account);
-        return CommonResult.success(account);
-    }
-
-    @Transactional(isolation = Isolation.REPEATABLE_READ,propagation = Propagation.REQUIRED)
-    @Override
-    public CommonResult<Account> update(Account account) {
-        accountMapper.updateByPrimaryKeySelective(account);
-        return CommonResult.success(account);
-    }
-
-    @Transactional(isolation = Isolation.REPEATABLE_READ,propagation = Propagation.REQUIRED)
-    @Override
-    public CommonResult<Account> delete(String id) {
-        accountMapper.deleteByPrimaryKey(id);
-        return CommonResult.success(null,"删除成功！");
+    public PageInfo listByPage(Map<String, Object> params) {
+        return new PageInfo(accountMapper.listByPage(params));
     }
 
     public CommonResult<Account> login(Account account) {
@@ -73,5 +56,23 @@ public class AccountServiceImpl implements AccountService {
         AccountUser accountUser = (AccountUser)authenticate.getPrincipal();
         redisCache.setAdmin(accountUser);
         return CommonResult.success(account,"登录成功！");
+    }
+
+    @Override
+    public CommonResult<Account> logout(Account account) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AccountUser accountUser = (AccountUser)authentication.getPrincipal();
+        String username = accountUser.getUsername();
+        redisCache.delAdmin(username);
+        return CommonResult.success(account,"注销成功！");
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public CommonResult<Account> create(Account obj){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        obj.setPassword(encoder.encode(obj.getPassword()));
+        int insertCount = getMapper().insert(obj);
+        return CommonResult.success(obj);
     }
 }

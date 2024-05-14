@@ -6,17 +6,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * @author perperon
  * @date 2024/5/11
- * @apiNote
+ * @apiNote Security配置类
  */
 @Configuration
-@EnableWebSecurity
 public class BaseSecurityConfig {
 
     @Bean

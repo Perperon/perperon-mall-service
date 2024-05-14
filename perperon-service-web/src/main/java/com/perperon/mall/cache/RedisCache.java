@@ -51,4 +51,14 @@ public class RedisCache {
         String key = REDIS_DATABASE + ":" + REDIS_KEY_ADMIN + ":" + username;
         return (Account) redisService.get(key);
     }
+
+    /**
+     * 删除缓存后台用户信息与token
+     */
+    public void delAdmin(String username) {
+        String key = REDIS_DATABASE + ":" + REDIS_KEY_ADMIN + ":" + username;
+        String tokenKey = REDIS_DATABASE + ":" + REDIS_KEY_TOKEN + ":" + username;
+        redisService.del(key);
+        redisService.del(tokenKey);
+    }
 }
