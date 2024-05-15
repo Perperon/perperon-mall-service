@@ -1,5 +1,6 @@
 package com.perperon.mall.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.perperon.mall.pojo.Account;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +18,8 @@ import java.util.Collection;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+//@JsonIgnoreProperties({"enabled","credentialsNonExpired","accountNonLocked","accountNonExpired","authorities"})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AccountUser implements UserDetails {
 
     private Account account;

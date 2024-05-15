@@ -46,7 +46,7 @@ public class AccountController extends BaseController<Account>{
 
     @PostMapping(value = "/logout")
     @ApiOperation(value = "退出登录", notes = "退出登录")
-    public Object logout(@RequestBody Account account) {
-        return accountService.logout(account);
+    public Object logout() {
+        return accountService.logout();
     }
 }

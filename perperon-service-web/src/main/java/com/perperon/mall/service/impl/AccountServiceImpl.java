@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.common.Mapper;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -46,7 +47,7 @@ public class AccountServiceImpl  implements AccountService {
         return new PageInfo(accountMapper.listByPage(params));
     }
 
-    public CommonResult<Account> login(Account account) {
+    public CommonResult login(Account account) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(account.getUsername(), account.getPassword());
         Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         if(ObjectUtil.isNull(authenticate)){
@@ -54,17 +55,19 @@ public class AccountServiceImpl  implements AccountService {
         }
         //认证成功，获取用户信息，生成jwt
         AccountUser accountUser = (AccountUser)authenticate.getPrincipal();
-        redisCache.setAdmin(accountUser);
-        return CommonResult.success(account,"登录成功！");
+        String jwt = redisCache.setAdmin(accountUser);
+        Map<String,Object> map = new HashMap<>();
+        map.put("token",jwt);
+        return CommonResult.success(map,"登录成功！");
     }
 
     @Override
-    public CommonResult<Account> logout(Account account) {
+    public CommonResult<Account> logout() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         AccountUser accountUser = (AccountUser)authentication.getPrincipal();
         String username = accountUser.getUsername();
         redisCache.delAdmin(username);
-        return CommonResult.success(account,"注销成功！");
+        return CommonResult.success(null,"注销成功！");
     }
 
     @Override

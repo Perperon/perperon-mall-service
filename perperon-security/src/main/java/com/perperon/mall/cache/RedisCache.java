@@ -2,7 +2,6 @@ package com.perperon.mall.cache;
 
 import com.perperon.mall.common.service.RedisService;
 import com.perperon.mall.entity.AccountUser;
-import com.perperon.mall.pojo.Account;
 import com.perperon.mall.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,12 +33,11 @@ public class RedisCache {
     /**
      * 设置缓存后台用户信息与token
      */
-    public void setAdmin(AccountUser admin){
+    public String setAdmin(AccountUser admin){
         String jwt = jwtTokenUtil.generateToken(admin);
         String key = REDIS_DATABASE + ":" + REDIS_KEY_ADMIN + ":" + admin.getUsername();
-        String tokenKey = REDIS_DATABASE + ":" + REDIS_KEY_TOKEN + ":" + admin.getUsername();
-        redisService.set(key, admin.getAccount(), REDIS_EXPIRE);
-        redisService.set(tokenKey, jwt, REDIS_EXPIRE);
+        redisService.set(key, admin, REDIS_EXPIRE);
+        return jwt;
     }
 
     /**
@@ -47,18 +45,16 @@ public class RedisCache {
      * @param username
      * @return
      */
-    public Account getAdmin(String username) {
+    public AccountUser getAdmin(String username) {
         String key = REDIS_DATABASE + ":" + REDIS_KEY_ADMIN + ":" + username;
-        return (Account) redisService.get(key);
+        return (AccountUser) redisService.get(key);
     }
 
     /**
-     * 删除缓存后台用户信息与token
+     * 删除缓存后台用户信息
      */
     public void delAdmin(String username) {
         String key = REDIS_DATABASE + ":" + REDIS_KEY_ADMIN + ":" + username;
-        String tokenKey = REDIS_DATABASE + ":" + REDIS_KEY_TOKEN + ":" + username;
         redisService.del(key);
-        redisService.del(tokenKey);
     }
 }

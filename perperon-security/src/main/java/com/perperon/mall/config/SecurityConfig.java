@@ -44,8 +44,8 @@ public class SecurityConfig {
                 .and()
                 //2.配置登录和登出路径
                 .formLogin().loginPage( "/login")
-                .and()
-                .logout().logoutUrl( "/logout")
+                /*.and()
+                .logout().logoutUrl( "/logout")*/
                 .and()
                 //3.开启http basic支持，admin-client注册时需要使用
                 .httpBasic()

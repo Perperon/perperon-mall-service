@@ -49,10 +49,6 @@
         </dependency>
         <dependency>
             <groupId>com.perperon.mall</groupId>
-            <artifactId>perperon-pojo</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.perperon.mall</groupId>
             <artifactId>perperon-security</artifactId>
         </dependency>
         <dependency>

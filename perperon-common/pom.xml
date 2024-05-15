@@ -20,6 +20,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.perperon.mall</groupId>
+            <artifactId>perperon-pojo</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
         </dependency>

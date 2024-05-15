@@ -11,5 +11,5 @@ import com.perperon.mall.pojo.Account;
 public interface AccountService extends BaseService<Account> {
     CommonResult<Account> login(Account account);
 
-    CommonResult<Account> logout(Account account);
+    CommonResult<Account> logout();
 }
