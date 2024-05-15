@@ -4,6 +4,7 @@ import com.perperon.mall.fliter.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
@@ -28,6 +29,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  */
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true) //开启方法级权限控制
 public class SecurityConfig {
 
    @Autowired
@@ -37,15 +39,19 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = httpSecurity
                 .authorizeRequests();
-        //1.配置所有静态资源和登录页可以公开访问
-        registry.antMatchers( "/assets/**").permitAll()
+
+            registry
+                //1.配置所有对静态资源的访问都放行
+                .antMatchers( "/assets/**").permitAll()
+                //未登录时登录请求可以公开或匿名访问，登录状态中不能访问
                 .antMatchers("/account/login").anonymous()
+                //其他请求都需登录认证才能访问
                 .anyRequest().authenticated()
                 .and()
                 //2.配置登录和登出路径
                 .formLogin().loginPage( "/login")
-                /*.and()
-                .logout().logoutUrl( "/logout")*/
+                .and()
+                .logout().logoutUrl( "/logout")
                 .and()
                 //3.开启http basic支持，admin-client注册时需要使用
                 .httpBasic()
@@ -55,7 +61,7 @@ public class SecurityConfig {
                 //不通过session来保持状态，使用jwt
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                // 自定义权限拦截器JWT过滤器
+                // 自定义JWT认证过滤器
                 .and()
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
