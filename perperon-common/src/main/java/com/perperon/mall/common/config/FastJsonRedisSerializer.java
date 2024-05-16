@@ -1,5 +1,4 @@
-/*
-package com.perperon.mall.config;
+package com.perperon.mall.common.config;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.ParserConfig;
@@ -11,12 +10,11 @@ import org.springframework.data.redis.serializer.SerializationException;
 
 import java.nio.charset.Charset;
 
-*/
 /**
  * @author dupengcheng
  * @date 2024/5/3
  * @apiNote 自定义redis序列化
- *//*
+ */
 
 public class FastJsonRedisSerializer<T> implements RedisSerializer<T> {
 
@@ -49,16 +47,15 @@ public class FastJsonRedisSerializer<T> implements RedisSerializer<T> {
         return JSON.parseObject(str, clazz);
     }
 
-    */
 /**
-     * 获取Java类型
-     *
-     * @param clazz 类对象
-     * @return Java类型
-     *//*
+ * 获取Java类型
+ *
+ * @param clazz 类对象
+ * @return Java类型
+ */
+
 
     protected JavaType getJavaType(Class<T> clazz) {
         return TypeFactory.defaultInstance().constructType(clazz);
     }
 }
-*/

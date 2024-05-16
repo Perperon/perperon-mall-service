@@ -1,14 +1,17 @@
 package com.perperon.mall.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import cn.hutool.core.collection.CollectionUtil;
+import com.alibaba.fastjson.annotation.JSONField;
 import com.perperon.mall.pojo.Account;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author perperon
@@ -16,17 +19,30 @@ import java.util.Collection;
  * @apiNote
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 //@JsonIgnoreProperties({"enabled","credentialsNonExpired","accountNonLocked","accountNonExpired","authorities"})
-@JsonIgnoreProperties(ignoreUnknown = true)
+//@JsonIgnoreProperties(ignoreUnknown = true)
 public class AccountUser implements UserDetails {
 
     private Account account;
+    //存储权限标识字符串集合
+    private List<String> permissions;
+    //GrantedAuthority对象中封装权限标识字符串集合
+    @JSONField(serialize = false)
+    private List<GrantedAuthority> authorities;
+
+    public AccountUser(Account account, List<String> permissions) {
+        this.account = account;
+        this.permissions = permissions;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        //将代表权限的标识字符串，封装到GrantedAuthority对象中
+        authorities = CollectionUtil.isEmpty(authorities) ? permissions.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList()) : authorities;
+        return authorities;
     }
 
     @Override

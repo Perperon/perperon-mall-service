@@ -28,6 +28,7 @@ import java.time.Duration;
 public class BaseRedisConfig {
 
     @Bean
+    @SuppressWarnings(value = {"unchecked","rawtypes"})
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         // 创建序列化器
         RedisSerializer<Object> serializer = redisSerializer();
@@ -54,10 +55,11 @@ public class BaseRedisConfig {
     public RedisSerializer<Object> redisSerializer() {
         //创建JSON序列化器
         Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(Object.class);
+        //GenericJackson2JsonRedisSerializer serializer = new GenericJackson2JsonRedisSerializer();
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         //必须设置，否则无法将JSON转化为对象，会转化成Map类型
-        objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance,ObjectMapper.DefaultTyping.NON_FINAL);
+        objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
         serializer.setObjectMapper(objectMapper);
         return serializer;
     }
