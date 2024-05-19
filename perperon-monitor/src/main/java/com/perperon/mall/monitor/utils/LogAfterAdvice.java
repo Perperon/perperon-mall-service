@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author perperon
  * @date 2024/5/19
- * @apiNote
+ * @apiNote service层切面记录日志
  */
 @Aspect
 @Component

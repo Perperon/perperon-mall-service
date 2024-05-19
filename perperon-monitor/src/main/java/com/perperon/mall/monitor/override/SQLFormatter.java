@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 /**
  * @author perperon
  * @date 2024/5/19
- * @apiNote
+ * @apiNote 格式化sql
  */
 public class SQLFormatter {
     private static final Set<String> BEGIN_CLAUSES = new HashSet();

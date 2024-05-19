@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 /**
  * @author perperon
  * @date 2024/5/19
- * @apiNote
+ * @apiNote 自定义日志格式
  */
 public class P6LogFormat extends SingleLineFormat {
     private Logger logger = LoggerFactory.getLogger(P6LogFormat.class);

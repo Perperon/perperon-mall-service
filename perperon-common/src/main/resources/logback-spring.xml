@@ -59,7 +59,6 @@
     </appender>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-
         <encoder>
             <!--设置为默认的文件日志格式-->
             <pattern>${FILE_LOG_PATTERN}</pattern>
@@ -153,7 +152,7 @@
                 <pattern>
                     <pattern>
                         {
-                        "project": "mall-swarm",
+                        "project": "perperon-mall",
                         "level": "%level",
                         "service": "${APP_NAME:-}",
                         "pid": "${PID:-}",
@@ -186,7 +185,7 @@
                 <pattern>
                     <pattern>
                         {
-                        "project": "mall-swarm",
+                        "project": "perperon-mall",
                         "level": "%level",
                         "service": "${APP_NAME:-}",
                         "class": "%logger",

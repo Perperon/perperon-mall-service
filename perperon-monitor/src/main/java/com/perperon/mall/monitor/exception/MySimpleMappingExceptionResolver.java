@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * @author perperon
  * @date 2024/5/19
- * @apiNote
+ * @apiNote 统一异常处理
  */
 @ControllerAdvice
 @Order(1)
