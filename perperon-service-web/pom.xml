@@ -52,6 +52,10 @@
             <artifactId>perperon-security</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.perperon.mall</groupId>
+            <artifactId>perperon-monitor</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
         </dependency>
