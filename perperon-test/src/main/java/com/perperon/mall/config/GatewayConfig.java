@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author dupengcheng
+ * @author perperon
  * @date 2024-04-15
  * @apiNote Gateway配置类
  */

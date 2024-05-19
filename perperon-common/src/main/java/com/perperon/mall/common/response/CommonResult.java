@@ -1,7 +1,7 @@
 package com.perperon.mall.common.response;
 
 /**
- * @author dupengcheng
+ * @author perperon
  * @date 2024-04-15
  * @apiNote
  */

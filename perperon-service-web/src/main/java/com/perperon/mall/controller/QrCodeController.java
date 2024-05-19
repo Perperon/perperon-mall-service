@@ -16,7 +16,7 @@ import java.awt.*;
 import java.io.IOException;
 
 /**
- * @author dupengcheng
+ * @author perperon
  * @date 2024-05-08
  * @apiNote  二维码生成
  */

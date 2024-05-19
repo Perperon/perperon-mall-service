@@ -28,7 +28,6 @@ import java.time.Duration;
 public class BaseRedisConfig {
 
     @Bean
-    @SuppressWarnings(value = {"unchecked","rawtypes"})
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         // 创建序列化器
         RedisSerializer<Object> serializer = redisSerializer();

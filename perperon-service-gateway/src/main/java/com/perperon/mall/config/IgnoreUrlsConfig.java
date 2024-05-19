@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * 网关白名单配置
- * @author dupengcheng
+ * @author perperon
  * @date 2024-04-15
  * @apiNote
  */

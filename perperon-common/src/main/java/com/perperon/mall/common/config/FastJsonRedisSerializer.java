@@ -11,7 +11,7 @@ import org.springframework.data.redis.serializer.SerializationException;
 import java.nio.charset.Charset;
 
 /**
- * @author dupengcheng
+ * @author perperon
  * @date 2024/5/3
  * @apiNote 自定义redis序列化
  */

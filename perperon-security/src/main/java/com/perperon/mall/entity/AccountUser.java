@@ -2,6 +2,8 @@ package com.perperon.mall.entity;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.perperon.mall.pojo.Account;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,15 +23,15 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 //@JsonIgnoreProperties({"enabled","credentialsNonExpired","accountNonLocked","accountNonExpired","authorities"})
-//@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AccountUser implements UserDetails {
 
     private Account account;
     //存储权限标识字符串集合
     private List<String> permissions;
     //GrantedAuthority对象中封装权限标识字符串集合
-    @JSONField(serialize = false)
-    private List<GrantedAuthority> authorities;
+    @JSONField(serialize = false) //忽略此属性的序列化
+    private List<SimpleGrantedAuthority> authorities;
 
     public AccountUser(Account account, List<String> permissions) {
         this.account = account;
@@ -37,6 +39,7 @@ public class AccountUser implements UserDetails {
     }
 
     @Override
+    @JsonIgnore //忽略此方法的序列化
     public Collection<? extends GrantedAuthority> getAuthorities() {
         //将代表权限的标识字符串，封装到GrantedAuthority对象中
         authorities = CollectionUtil.isEmpty(authorities) ? permissions.stream()

@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author dupengcheng
+ * @author perperon
  * @date 2024/4/15
  * @apiNote
  */
@@ -20,7 +20,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @ApiModel("用户")
-@Table(name = "perperon_account")
+@Table(name = "pp_account")
 public class Account implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -47,6 +47,10 @@ public class Account implements Serializable {
     @ApiModelProperty(value = "备注信息")
     private String remark;
 
+    @ApiModelProperty(value = "创建人")
+    @Column(name = "user_id")
+    private String userId;
+
     @ApiModelProperty(value = "创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date created;
@@ -57,5 +61,5 @@ public class Account implements Serializable {
     private Date loginTime;
 
     @ApiModelProperty(value = "帐号启用状态：0->禁用；1->启用")
-    private Integer status;
+    private Boolean status;
 }

@@ -7,7 +7,7 @@ import tk.mybatis.spring.mapper.MapperScannerConfigurer;
 import java.util.Properties;
 
 /**
- * @author dupengcheng
+ * @author perperon
  * @date 2024-04-16
  * @apiNote tk.mybatis配置，实现数据ID自定义生成配置
  */

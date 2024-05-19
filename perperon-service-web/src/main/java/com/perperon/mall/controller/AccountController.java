@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 /**
- * @author dupengcheng
+ * @author perperon
  * @date 2024-04-09
  * @apiNote
  */
@@ -41,7 +41,7 @@ public class AccountController extends BaseController<Account>{
 
     @GetMapping(value = "/listPage")
     @ApiOperation(value = "查询用户", notes = "查询用户")
-    @PreAuthorize("hasAuthority('account:list')")
+    @PreAuthorize("hasAuthority('list')")
     public Object listPage(@RequestParam Map<String,Object> params) {
         return accountService.listByPage(params);
     }
