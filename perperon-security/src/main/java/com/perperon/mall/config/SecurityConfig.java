@@ -1,17 +1,18 @@
 package com.perperon.mall.config;
 
 import com.perperon.mall.fliter.JwtAuthenticationTokenFilter;
-import com.perperon.mall.handler.RestAuthenticationEntryPoint;
-import com.perperon.mall.handler.RestfulAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -37,9 +38,9 @@ public class SecurityConfig {
     @Autowired
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
     @Autowired
-    private RestfulAccessDeniedHandler accessDeniedHandler;
+    private AccessDeniedHandler accessDeniedHandler;
     @Autowired
-    private RestAuthenticationEntryPoint authenticationEntryPoint;
+    private AuthenticationEntryPoint authenticationEntryPoint;
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -47,6 +48,8 @@ public class SecurityConfig {
                 .authorizeRequests();
 
             registry
+                //允许跨域请求的OPTIONS请求
+                .antMatchers(HttpMethod.OPTIONS).permitAll()
                 //1.配置所有对静态资源的访问都放行
                 .antMatchers( "/assets/**").permitAll()
                 //未登录时登录请求可以公开或匿名访问，登录状态中不能访问
@@ -59,15 +62,16 @@ public class SecurityConfig {
                 //不通过session来保持状态，使用jwt
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .exceptionHandling()
+                // 自定义权限拒绝处理类
+                .accessDeniedHandler(accessDeniedHandler)
+                // 自定义认证失败处理类
+                .authenticationEntryPoint(authenticationEntryPoint)
                 // 自定义JWT认证过滤器
                 .and()
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
-        httpSecurity.exceptionHandling()
-                // 自定义权限拒绝处理类
-                .accessDeniedHandler(accessDeniedHandler)
-                // 自定义认证失败处理类
-                .authenticationEntryPoint(authenticationEntryPoint);
         return httpSecurity.build();
     }
 }
