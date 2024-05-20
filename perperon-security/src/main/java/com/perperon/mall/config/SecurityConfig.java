@@ -1,6 +1,8 @@
 package com.perperon.mall.config;
 
 import com.perperon.mall.fliter.JwtAuthenticationTokenFilter;
+import com.perperon.mall.handler.RestAuthenticationEntryPoint;
+import com.perperon.mall.handler.RestfulAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,8 +34,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true) //开启方法级权限控制
 public class SecurityConfig {
 
-   @Autowired
-   private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+    @Autowired
+    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+    @Autowired
+    private RestfulAccessDeniedHandler accessDeniedHandler;
+    @Autowired
+    private RestAuthenticationEntryPoint authenticationEntryPoint;
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -48,14 +54,6 @@ public class SecurityConfig {
                 //其他请求都需登录认证才能访问
                 .anyRequest().authenticated()
                 .and()
-                //2.配置登录和登出路径
-                .formLogin().loginPage( "/login")
-                .and()
-                .logout().logoutUrl( "/logout")
-                .and()
-                //3.开启http basic支持，admin-client注册时需要使用
-                .httpBasic()
-                .and()
                 .csrf()
                 .disable()
                 //不通过session来保持状态，使用jwt
@@ -64,6 +62,12 @@ public class SecurityConfig {
                 // 自定义JWT认证过滤器
                 .and()
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+
+        httpSecurity.exceptionHandling()
+                // 自定义权限拒绝处理类
+                .accessDeniedHandler(accessDeniedHandler)
+                // 自定义认证失败处理类
+                .authenticationEntryPoint(authenticationEntryPoint);
         return httpSecurity.build();
     }
 }

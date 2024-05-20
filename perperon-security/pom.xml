@@ -38,6 +38,10 @@
             <groupId>com.perperon.mall</groupId>
             <artifactId>perperon-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.perperon.mall</groupId>
+            <artifactId>perperon-monitor</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

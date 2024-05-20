@@ -3,6 +3,7 @@ package com.perperon.mall.security;
 import cn.hutool.core.util.ObjectUtil;
 import com.perperon.mall.entity.AccountUser;
 import com.perperon.mall.mapper.AccountMapper;
+import com.perperon.mall.mapper.MenuMapper;
 import com.perperon.mall.pojo.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,8 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author perperon
@@ -22,6 +22,8 @@ import java.util.Arrays;
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private AccountMapper accountMapper;
+    @Autowired
+    private MenuMapper menuMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -30,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new RuntimeException("用户名不存在");
         }
         //查询对应权限信息
-        ArrayList<String> auth = new ArrayList<>(Arrays.asList("list", "add"));
+        List<String> auth = menuMapper.selectPermsByUserId(account.getId());
 
         return new AccountUser(account,auth);
     }

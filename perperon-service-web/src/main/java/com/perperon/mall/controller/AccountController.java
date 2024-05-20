@@ -41,7 +41,7 @@ public class AccountController extends BaseController<Account>{
 
     @GetMapping(value = "/listPage")
     @ApiOperation(value = "查询用户", notes = "查询用户")
-    @PreAuthorize("hasAuthority('list')")
+    @PreAuthorize("hasAuthority('test:list')")
     public Object listPage(@RequestParam Map<String,Object> params) {
         return accountService.listByPage(params);
     }

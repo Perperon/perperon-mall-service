@@ -1,36 +1,42 @@
-/*
-package com.perperon.mall.monitor.exception;
+package com.perperon.mall.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.perperon.mall.handler.RestAuthenticationEntryPoint;
+import com.perperon.mall.handler.RestfulAccessDeniedHandler;
+import com.perperon.mall.monitor.exception.BusinessException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.naming.AuthenticationException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
-import java.nio.file.AccessDeniedException;
 import java.util.HashMap;
 import java.util.Map;
 
-*/
 /**
  * @author perperon
  * @date 2024/5/19
  * @apiNote 统一异常处理
- *//*
-
+ */
 @ControllerAdvice
 @Order(value= Ordered.HIGHEST_PRECEDENCE)
 public class MySimpleMappingExceptionResolver implements HandlerExceptionResolver {
     private static ObjectMapper jsonMapper = new ObjectMapper();
     private static Logger logger = LoggerFactory.getLogger(MySimpleMappingExceptionResolver.class);
+
+    @Autowired
+    private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+    @Autowired
+    private RestfulAccessDeniedHandler restAccessDeniedHandler;
 
     public MySimpleMappingExceptionResolver() {
     }
@@ -38,13 +44,23 @@ public class MySimpleMappingExceptionResolver implements HandlerExceptionResolve
     @ExceptionHandler
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object object, Exception exception) {
         try {
+            String msg = exception.getMessage();
+            // 检查是否是认证异常
+            if (exception instanceof AuthenticationException) {
+                restAuthenticationEntryPoint.commence(request, response,(AuthenticationException)exception);
+                return null;
+            }
+            // 检查是否是权限异常
+            if (exception instanceof AccessDeniedException) {
+                restAccessDeniedHandler.handle(request, response, (AccessDeniedException) exception);
+                return null;
+            }
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
             OutputStream writer = response.getOutputStream();
             Map<String, Object> map = new HashMap();
             map.put("status", -1);
             map.put("success", false);
-            String msg = exception.getMessage();
             if (exception instanceof BusinessException) {
                 response.setHeader("Content-type", "application/json;charset=UTF-8");
                 map.put("code", "业务异常");
@@ -83,18 +99,5 @@ public class MySimpleMappingExceptionResolver implements HandlerExceptionResolve
 
         return null;
     }
-
-    @ExceptionHandler(AccessDeniedException.class)
-    public void accessDeniedException(AccessDeniedException e) throws AccessDeniedException {
-        logger.info("accessDeniedException", e);
-        throw e;
-    }
-
-    @ExceptionHandler(AuthenticationException.class)
-    public void authenticationException(AuthenticationException e) throws AuthenticationException {
-        logger.info("authenticationException", e);
-        throw e;
-    }
 }
 
-*/
