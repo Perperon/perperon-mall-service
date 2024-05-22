@@ -30,6 +30,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  *
  * 创建默认的认证管理器: 如果没有定义自己的 AuthenticationManager，Spring Security 会创建一个默认的。
  */
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true) //开启方法级权限控制
