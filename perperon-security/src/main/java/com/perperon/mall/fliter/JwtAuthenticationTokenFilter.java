@@ -33,15 +33,15 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     private RedisCache redisCache;
     @Value("${jwt.tokenHeader}")
     private String tokenHeader;
-    /*@Value("${jwt.tokenHead}")
-    private String tokenHead;*/
+    @Value("${jwt.tokenHead}")
+    private String tokenHead;
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-        String authToken = request.getHeader(this.tokenHeader);
-        if (StrUtil.isNotEmpty(authToken)) {
-            //String authToken = authHeader.substring(this.tokenHead.length());// The part after "Bearer "
+        String authHeader = request.getHeader(this.tokenHeader);
+        if (StrUtil.isNotEmpty(authHeader)) {
+            String authToken = authHeader.substring(this.tokenHead.length());// The part after "Bearer "
             String username = jwtTokenUtil.getUserNameFromToken(authToken);
             LOGGER.info("checking username:{}", username);
             if (StrUtil.isNotEmpty(username) && SecurityContextHolder.getContext().getAuthentication() == null) {

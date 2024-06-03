@@ -25,6 +25,9 @@ public class RedisCache {
     private String REDIS_KEY_ADMIN;
     @Value("${redis.key.token}")
     private String REDIS_KEY_TOKEN;
+
+    @Value("${jwt.tokenHead}")
+    private String TOKEN_HEAD;
     @Autowired
     private RedisService redisService;
     @Resource
@@ -34,7 +37,7 @@ public class RedisCache {
      * 设置缓存后台用户信息与token
      */
     public String setAdmin(AccountUser admin){
-        String jwt = jwtTokenUtil.generateToken(admin);
+        String jwt = TOKEN_HEAD + jwtTokenUtil.generateToken(admin);
         String key = REDIS_DATABASE + ":" + REDIS_KEY_ADMIN + ":" + admin.getUsername();
         redisService.set(key, admin, REDIS_EXPIRE);
         return jwt;
