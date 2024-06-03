@@ -7,7 +7,6 @@ import com.perperon.mall.service.BaseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -41,7 +40,6 @@ public class AccountController extends BaseController<Account>{
 
     @GetMapping(value = "/listPage")
     @ApiOperation(value = "查询用户", notes = "查询用户")
-    @PreAuthorize("hasAuthority('test:list')")
     public Object listPage(@RequestParam Map<String,Object> params) {
         return accountService.listByPage(params);
     }

@@ -48,6 +48,13 @@ public class Menu implements Serializable,Cloneable{
     /** 是否显示 */
     @ApiModelProperty(name = "是否显示",notes = "")
     private boolean visible ;
+    /** 父级菜单标识 */
+    @ApiModelProperty(name = "父级菜单标识",notes = "")
+    @Column(name = "parent_id")
+    private String parentId ;
+    /** 排序 */
+    @ApiModelProperty(name = "排序",notes = "")
+    private int sort ;
     /** 创建人 */
     @ApiModelProperty(name = "创建人",notes = "")
     @Column(name = "user_id")

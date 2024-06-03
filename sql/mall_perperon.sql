@@ -91,8 +91,10 @@ CREATE TABLE `pp_menu` (
   `path` varchar(50) DEFAULT NULL COMMENT '菜单路径;',
   `status` bit(1) DEFAULT NULL COMMENT '菜单状态;',
   `visible` bit(1) DEFAULT NULL COMMENT '是否显示;',
+  `parent_id` varchar(40) DEFAULT NULL COMMENT '上级菜单标识;',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `user_id` varchar(40) DEFAULT NULL COMMENT '创建人',
+  `sort` int(11) DEFAULT NULL COMMENT '排序;',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='菜单表';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -103,7 +105,7 @@ CREATE TABLE `pp_menu` (
 
 LOCK TABLES `pp_menu` WRITE;
 /*!40000 ALTER TABLE `pp_menu` DISABLE KEYS */;
-INSERT INTO `pp_menu` VALUES ('1','测试管理','test:list',NULL,NULL,'/test/index',0x01,NULL,'2024-05-20 02:38:55',NULL),('2','设置管理','dept:list',NULL,NULL,'/dept/index',0x01,NULL,'2024-05-20 02:39:58',NULL);
+INSERT INTO `pp_menu` VALUES ('1','商品管理','test:list',NULL,NULL,'/test/index',0x01,NULL,NULL,'2024-05-20 02:38:55',NULL,NULL),('2','系统管理','dept:list',NULL,NULL,'/dept/index',0x01,NULL,NULL,'2024-05-20 02:39:58',NULL,NULL),('3','商品列表','puduct:list',NULL,NULL,'/test/index',0x01,NULL,'1','2024-06-03 14:25:50',NULL,NULL);
 /*!40000 ALTER TABLE `pp_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,4 +179,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-20 22:28:57
+-- Dump completed on 2024-06-03 23:50:05
