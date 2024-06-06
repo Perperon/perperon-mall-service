@@ -48,7 +48,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     /**
-     * 将UmsMenu转化为UmsMenuNode并设置children属性
+     * 将Menu转化为MenuDto并设置children属性
      */
     private MenuDto covertMenuNode(Menu menu, List<Menu> menuList) {
         MenuDto node = new MenuDto();
