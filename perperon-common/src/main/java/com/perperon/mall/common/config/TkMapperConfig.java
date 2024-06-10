@@ -1,5 +1,7 @@
 package com.perperon.mall.common.config;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tk.mybatis.spring.mapper.MapperScannerConfigurer;
@@ -13,7 +15,13 @@ import java.util.Properties;
  */
 @Configuration
 public class TkMapperConfig {
+    private static Log log = LogFactory.getLog(TkMapperConfig.class);
 
+
+        /**
+         *配置Mapper接口扫描器，扫描接口中的SQL语句，并自动注入到Mapper接口中
+         * @return
+         */
         @Bean
         public MapperScannerConfigurer mapperScannerConfigurer() {
             // 创建一个MapperScannerConfigurer对象

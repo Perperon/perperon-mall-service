@@ -38,10 +38,10 @@ public class AccountController extends BaseController<Account>{
     }
 
 
-    @GetMapping(value = "/listPage")
+    @GetMapping(value = "/listByPage")
     @ApiOperation(value = "查询用户", notes = "查询用户")
     public Object listPage(@RequestParam Map<String,Object> params) {
-        return accountService.listByPage(params);
+        return CommonResult.success(accountService.listByPage(params));
     }
 
     @PostMapping(value = "/logout")
