@@ -3,6 +3,7 @@ package com.perperon.mall.service.impl;
 import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageInfo;
 import com.perperon.mall.cache.RedisCache;
+import com.perperon.mall.common.exception.Asserts;
 import com.perperon.mall.common.response.CommonResult;
 import com.perperon.mall.entity.AccountUser;
 import com.perperon.mall.mapper.AccountMapper;
@@ -53,7 +54,7 @@ public class AccountServiceImpl  implements AccountService {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(account.getUsername(), account.getPassword());
         Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         if(ObjectUtil.isNull(authenticate)){
-            throw new RuntimeException("登录失败！");
+            Asserts.fail("登录失败");
         }
 
         //认证成功，获取用户信息，生成jwt

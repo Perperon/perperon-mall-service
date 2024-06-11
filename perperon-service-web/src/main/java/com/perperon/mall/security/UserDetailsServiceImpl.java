@@ -1,6 +1,7 @@
 package com.perperon.mall.security;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.perperon.mall.common.exception.Asserts;
 import com.perperon.mall.entity.AccountUser;
 import com.perperon.mall.mapper.AccountMapper;
 import com.perperon.mall.mapper.MenuMapper;
@@ -29,10 +30,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = accountMapper.selectByUsername(username);
         if (ObjectUtil.isNull(account)) {
-            throw new RuntimeException("用户名不存在");
+            Asserts.fail("用户名不存在");
         }
         if (!account.getStatus()) {
-            throw new RuntimeException("用户已被禁用");
+            Asserts.fail("用户已被禁用");
         }
         //查询对应权限信息
         List<String> auth = menuMapper.selectPermsByUserId(account.getId());

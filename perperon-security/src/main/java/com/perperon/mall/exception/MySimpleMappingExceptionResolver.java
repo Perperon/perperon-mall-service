@@ -1,3 +1,4 @@
+/*
 package com.perperon.mall.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,8 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -22,11 +21,13 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+*/
 /**
  * @author perperon
  * @date 2024/5/19
  * @apiNote 统一异常处理
- */
+ *//*
+
 @ControllerAdvice
 @Order(value= Ordered.HIGHEST_PRECEDENCE)
 public class MySimpleMappingExceptionResolver implements HandlerExceptionResolver {
@@ -101,3 +102,4 @@ public class MySimpleMappingExceptionResolver implements HandlerExceptionResolve
     }
 }
 
+*/
