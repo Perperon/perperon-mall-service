@@ -21,6 +21,8 @@ import java.util.Date;
 @ApiModel(value = "角色",description = "")
 @Table(name="pp_roles")
 public class Roles implements Serializable,Cloneable{
+
+    private static final long serialVersionUID = 1L;
     /** 唯一编号 */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")

@@ -21,6 +21,8 @@ import java.util.Date;
 @ApiModel(value = "菜单",description = "")
 @Table(name="pp_menu")
 public class Menu implements Serializable,Cloneable{
+
+    private static final long serialVersionUID = 1L;
     /** 主键标识 */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")

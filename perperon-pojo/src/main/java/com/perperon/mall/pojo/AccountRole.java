@@ -21,6 +21,8 @@ import java.util.Date;
 @ApiModel(value = "用户角色",description = "")
 @Table(name="pp_account_role")
 public class AccountRole implements Serializable,Cloneable{
+
+    private static final long serialVersionUID = 1L;
     /** 主键标识 */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")
