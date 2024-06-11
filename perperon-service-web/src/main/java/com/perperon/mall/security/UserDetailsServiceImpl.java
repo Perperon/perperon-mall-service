@@ -31,6 +31,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (ObjectUtil.isNull(account)) {
             throw new RuntimeException("用户名不存在");
         }
+        if (!account.getStatus()) {
+            throw new RuntimeException("用户已被禁用");
+        }
         //查询对应权限信息
         List<String> auth = menuMapper.selectPermsByUserId(account.getId());
 

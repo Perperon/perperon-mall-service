@@ -27,19 +27,19 @@ public abstract class BaseController<T> {
 
     @PostMapping("/create")
     @ApiOperation("添加")
-    public CommonResult<T> create(T obj){
+    public CommonResult<T> create(@RequestBody T obj){
         return getService().create(obj);
     }
 
     @PutMapping("/update")
     @ApiOperation("更新")
-    public CommonResult<T> update(T obj){
+    public CommonResult<T> update(@RequestBody T obj){
         return getService().update(obj);
     }
 
     @DeleteMapping("/delete")
     @ApiOperation("删除")
-    public CommonResult<T> delete(T obj){
+    public CommonResult<T> delete(@RequestBody T obj){
         return getService().delete(obj);
     }
 

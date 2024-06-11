@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.common.Mapper;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,14 +48,20 @@ public class AccountServiceImpl  implements AccountService {
         return new PageInfo(accountMapper.listByPage(params));
     }
 
+    @Transactional(propagation= Propagation.REQUIRED)
     public CommonResult login(Account account) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(account.getUsername(), account.getPassword());
         Authentication authenticate = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         if(ObjectUtil.isNull(authenticate)){
             throw new RuntimeException("登录失败！");
         }
+
         //认证成功，获取用户信息，生成jwt
         AccountUser accountUser = (AccountUser)authenticate.getPrincipal();
+        //更新登录时间
+        account = accountUser.getAccount();
+        account.setLoginTime(new Date());
+        accountMapper.updateByPrimaryKeySelective(account);
         String jwt = redisCache.setAdmin(accountUser);
         Map<String,Object> map = new HashMap<>();
         map.put("token",jwt);
