@@ -42,11 +42,17 @@ public class SecurityConfig {
     private AccessDeniedHandler accessDeniedHandler;
     @Autowired
     private AuthenticationEntryPoint authenticationEntryPoint;
+    @Autowired
+    private IgnoreUrlsConfig ignoreUrlsConfig;
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = httpSecurity
                 .authorizeRequests();
+
+            for (String url : ignoreUrlsConfig.getUrls()) {
+                 registry.antMatchers(url).permitAll();
+            }
 
             registry
                 //允许跨域请求的OPTIONS请求

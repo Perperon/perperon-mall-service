@@ -56,3 +56,16 @@ pagehelper:
 #        connectTimeout: 5000
 #        readTimeout: 5000
 #        loggerLevel: basic
+
+secure:
+  ignore:
+    urls: #配置白名单路径
+      - "/doc.html"
+      - "/swagger-resources/**"
+      - "/swagger/**"
+      - "/v2/api-docs"
+      - "/*/*.js"
+      - "/*/*.css"
+      - "/*/*.png"
+      - "/*/*.ico"
+      - "/actuator/**"
