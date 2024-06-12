@@ -7,9 +7,10 @@ import com.perperon.mall.service.BaseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author perperon
@@ -35,13 +36,6 @@ public class AccountController extends BaseController<Account>{
     public Object login(@RequestBody Account account) {
         CommonResult<Account> login = accountService.login(account);
         return login;
-    }
-
-
-    @GetMapping(value = "/listByPage")
-    @ApiOperation(value = "查询用户", notes = "查询用户")
-    public Object listPage(@RequestParam Map<String,Object> params) {
-        return CommonResult.success(accountService.listByPage(params));
     }
 
     @PostMapping(value = "/logout")

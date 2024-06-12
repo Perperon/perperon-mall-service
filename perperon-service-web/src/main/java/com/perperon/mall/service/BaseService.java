@@ -1,12 +1,12 @@
 package com.perperon.mall.service;
 
 
+import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageInfo;
 import com.perperon.mall.common.response.CommonResult;
 import com.perperon.mall.common.utils.Help;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public interface BaseService<T> {
 
     default List<T> getListByPage(Map<String,Object> params){
         List<T> data;
-        if (StringUtils.isEmpty(params)){
+        if (ObjectUtil.isEmpty(params)){
             Help.startPage(params);
             data = getMapper().selectAll();
         }else{

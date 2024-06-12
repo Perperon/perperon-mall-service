@@ -38,6 +38,7 @@ redis:
     token: 'web:jwt'
   expire:
     common: 86400 # 24小时
+
 pagehelper:
   helperDialect: mysql # 数据库方言
   reasonable: true # 支持接口参数中的pageNum和pageSize为0时查询第一页记录
@@ -45,6 +46,7 @@ pagehelper:
   #params: count=countSql # 分页参数名
   offsetAsPageNum: true # 使用 RowBounds 分页时，将参数 offset 作为 pageNum 查询
   rowBoundsWithCount: true # 使用 RowBounds 进行分页时是否查询总记录数
+
 #feign:
 #  okhttp:
 #    enabled: true

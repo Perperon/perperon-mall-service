@@ -52,7 +52,7 @@ public class SecurityConfig {
                 //允许跨域请求的OPTIONS请求
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 //1.配置所有对静态资源的访问都放行
-                .antMatchers( "/assets/**").permitAll()
+                //.antMatchers( "/assets/**").permitAll()
                 //未登录时登录请求可以公开或匿名访问，登录状态中不能访问
                 .antMatchers("/account/login").anonymous()
                 //其他请求都需登录认证才能访问
