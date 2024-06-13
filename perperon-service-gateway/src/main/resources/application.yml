@@ -18,21 +18,6 @@ spring:
           filters:
             - StripPrefix=1
 
-secure:
-  ignore:
-    urls: #配置白名单路径
-      - "/doc.html"
-      - "/swagger-resources/**"
-      - "/swagger/**"
-      - "/*/v2/api-docs"
-      - "/*/*.js"
-      - "/*/*.css"
-      - "/*/*.png"
-      - "/*/*.ico"
-      - "/webjars/**"
-      - "/actuator/**"
-      - "/service-web/admin/login"
-      - "/guonei"
 management: #开启SpringBoot Admin的监控
   endpoints:
     web:

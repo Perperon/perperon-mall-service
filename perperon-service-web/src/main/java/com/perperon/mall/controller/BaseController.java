@@ -18,10 +18,10 @@ public abstract class BaseController<T> {
 
     public abstract BaseService<T> getService();
 
-    @RequestMapping("/listByPage")
-    @ApiOperation("分页查询列表（@RequestBody）")
+    @GetMapping(value = "/listByPage")
+    @ApiOperation("分页查询列表")
     @ResponseBody
-    public CommonResult<CommonPage<T>> listByPage(@RequestBody Map<String,Object> params){
+    public CommonResult<CommonPage<T>> listByPage(@RequestParam Map<String,Object> params){
         return CommonResult.success(CommonPage.restPage(getService().listByPage(params)));
     }
 
@@ -56,7 +56,7 @@ public abstract class BaseController<T> {
         return CommonResult.success(CommonPage.restPage(getService().getListByPage(params)));
     }
 
-    @RequestMapping("/listByObj")
+    @PostMapping("/listByObj")
     @ResponseBody
     @ApiOperation("查询列表（T）")
     public CommonResult<CommonPage<T>> listByObj(@RequestBody T params){
