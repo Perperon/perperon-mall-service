@@ -82,7 +82,7 @@ public class AccountServiceImpl  implements AccountService {
     @Transactional(propagation = Propagation.REQUIRED)
     public CommonResult<Account> create(Account obj){
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        obj.setPassword(encoder.encode(obj.getPassword()));
+        obj.setPassword(encoder.encode("123456"));
         int insertCount = getMapper().insert(obj);
         return CommonResult.success(obj);
     }
