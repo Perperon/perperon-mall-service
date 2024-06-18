@@ -63,5 +63,10 @@ public abstract class BaseController<T> {
         return CommonResult.success(CommonPage.restPage(getService().listByObj(params)));
     }
 
-
+    @GetMapping("/getById/{id}")
+    @ApiOperation(value = "根据id查询", notes = "根据id查询")
+    public Object getById(@PathVariable("id") String  id) {
+        CommonResult<T> obj = getService().getById(id);
+        return obj;
+    }
 }

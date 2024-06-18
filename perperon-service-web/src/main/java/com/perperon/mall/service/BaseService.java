@@ -64,5 +64,7 @@ public interface BaseService<T> {
         return getMapper().select(t);
     }
 
-
+    default CommonResult<T> getById(String id){
+        return CommonResult.success(getMapper().selectByPrimaryKey(id),"查询成功");
+    }
 }
