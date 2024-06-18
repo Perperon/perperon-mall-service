@@ -9,6 +9,7 @@
         <result column="created" jdbcType="TIMESTAMP" property="created" />
 
         <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+        <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
     </resultMap>
     <sql id="basic_list">
         a.id,
@@ -31,7 +32,7 @@
 
     <select id="listByRoleId" parameterType="map" resultMap="BaseResultMap">
         select
-        <include refid="basic_list"/>,m.parent_id
+        <include refid="basic_list"/>,m.parent_id,m.menu_name
         from
         pp_role_menu as a
         LEFT JOIN pp_menu m ON m.id = a.menu_id

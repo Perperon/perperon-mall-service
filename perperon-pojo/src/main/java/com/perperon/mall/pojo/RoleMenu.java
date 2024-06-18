@@ -48,4 +48,7 @@ public class RoleMenu implements Serializable,Cloneable{
 
     @Transient
     private String parentId;
+
+    @Transient
+    private String menuName;
 }

@@ -46,6 +46,7 @@ public class RolesServiceImpl implements RolesService {
         for (RolesDto role : roles) {
             //查询出角色所有权限
             List<RoleMenu> roleMenus = roleMenuMapper.listByRoleId(role.getId());
+            //将角色所属权限转化为树形结构并分配给角色
             List<MenuDto> result = roleMenus.stream()
                     .filter(menu -> StrUtil.isBlank(menu.getParentId()))
                     .map(menu -> covertMenuNode(menu, roleMenus))
