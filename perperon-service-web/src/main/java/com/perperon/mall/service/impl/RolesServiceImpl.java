@@ -52,7 +52,7 @@ public class RolesServiceImpl implements RolesService {
                     .collect(Collectors.toList());
             role.setChildren(result);
         }
-        return new PageInfo();
+        return new PageInfo(roles);
     }
 
     /**

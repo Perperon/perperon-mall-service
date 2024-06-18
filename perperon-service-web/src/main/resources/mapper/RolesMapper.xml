@@ -25,7 +25,7 @@
         a.updated_by,
         a.updated_time
     </sql>
-    <select id="listByPage" parameterType="map" resultMap="BaseResultMap">
+    <select id="listByPage" parameterType="map" resultMap="BaseResultMapDto">
         select <include refid="basic_list"/>
         from pp_roles as a
         <where>
