@@ -1,5 +1,6 @@
 package com.perperon.mall.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -36,9 +37,10 @@ public class Roles implements Serializable,Cloneable{
     private String name ;
     /** 状态 */
     @ApiModelProperty(name = "状态",notes = "")
-    private boolean status ;
+    private Boolean status ;
     /** 创建时间 */
     @ApiModelProperty(name = "创建时间",notes = "")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date created ;
     /** 创建人 */
     @ApiModelProperty(name = "创建人",notes = "")
@@ -50,6 +52,7 @@ public class Roles implements Serializable,Cloneable{
     private String updatedBy ;
     /** 更新时间 */
     @ApiModelProperty(name = "更新时间",notes = "")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @Column(name = "updated_time")
     private Date updatedTime ;
 }

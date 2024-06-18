@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.perperon.mall.mapper.RoleMenuMapper">
+    <resultMap id="BaseResultMap" type="com.perperon.mall.pojo.RoleMenu">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+        <result column="menu_id" jdbcType="VARCHAR" property="menuId" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="created" jdbcType="TIMESTAMP" property="created" />
+
+        <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    </resultMap>
+    <sql id="basic_list">
+        a.id,
+        a.role_id,
+        a.menu_id,
+        a.created,
+        a.user_id
+    </sql>
+    <select id="listByPage" parameterType="map" resultMap="BaseResultMap">
+        select
+             <include refid="basic_list"/>
+        from
+             pp_role_menu as a
+        <where>
+            <if test="roleId != null and roleId != ''">
+                and a.role_id = #{roleId}
+            </if>
+        </where>
+    </select>
+
+    <select id="listByRoleId" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="basic_list"/>,m.parent_id
+        from
+        pp_role_menu as a
+        LEFT JOIN pp_menu m ON m.id = a.menu_id
+        <where>
+            <if test="roleId != null and roleId != ''">
+                and a.role_id = #{roleId}
+            </if>
+        </where>
+    </select>
+</mapper>

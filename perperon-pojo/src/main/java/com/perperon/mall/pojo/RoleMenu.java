@@ -1,5 +1,6 @@
 package com.perperon.mall.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -38,9 +39,13 @@ public class RoleMenu implements Serializable,Cloneable{
     private String menuId ;
     /** 创建时间 */
     @ApiModelProperty(name = "创建时间",notes = "")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date created ;
     /** 创建人 */
     @ApiModelProperty(name = "创建人",notes = "")
     @Column(name = "user_id")
     private String userId ;
+
+    @Transient
+    private String parentId;
 }
