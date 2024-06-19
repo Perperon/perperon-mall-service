@@ -7,7 +7,6 @@ import com.perperon.mall.dto.RolesDto;
 import com.perperon.mall.mapper.MenuMapper;
 import com.perperon.mall.mapper.RoleMenuMapper;
 import com.perperon.mall.mapper.RolesMapper;
-import com.perperon.mall.pojo.Menu;
 import com.perperon.mall.pojo.RoleMenu;
 import com.perperon.mall.pojo.Roles;
 import com.perperon.mall.service.RolesService;
@@ -84,8 +83,8 @@ public class RolesServiceImpl implements RolesService {
         //遍历角色信息，获取权限标识，而且不重复
         Set<String> menuCodeSet  = new HashSet<>();
         for(Roles role : roleList) {
-            List<Menu> menuList = menuMapper.getMenuCodeByRoleId(role.getId());
-            for(Menu menu : menuList) {
+            List<MenuDto> menuList = menuMapper.getMenuCodeByRoleId(role.getId());
+            for(MenuDto menu : menuList) {
                 if (StrUtil.isNotBlank(menu.getPerms())){
                     menuCodeSet.add(menu.getPerms());
                 }

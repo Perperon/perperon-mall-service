@@ -1,7 +1,6 @@
 package com.perperon.mall.service.impl;
 
 import com.github.pagehelper.PageInfo;
-import com.github.xiaoymin.knife4j.core.util.StrUtil;
 import com.perperon.mall.dto.MenuDto;
 import com.perperon.mall.entity.AccountUser;
 import com.perperon.mall.mapper.MenuMapper;
@@ -51,15 +50,15 @@ public class MenuServiceImpl implements MenuService {
         AccountUser accountUser = (AccountUser) authentication.getPrincipal();
         List<Roles> roleList = rolesMapper.getRolesById(accountUser.getAccount().getId());
 
-        Set<Menu> menuSet  = new HashSet<>();
+        Set<MenuDto> menuSet  = new HashSet<>();
         for(Roles role : roleList) {
-            List<Menu> menuList = menuMapper.getMenuCodeByRoleId(role.getId());
-            for(Menu menu : menuList) {
+            List<MenuDto> menuList = menuMapper.getMenuCodeByRoleId(role.getId());
+            for(MenuDto menu : menuList) {
                 menuSet.add(menu);
 
             }
         }
-        List<Menu> menuList = new ArrayList<>(menuSet);
+        List<MenuDto> menuList = new ArrayList<>(menuSet);
         //排序
         menuList.sort(Comparator.comparingInt(Menu::getSort));
 
@@ -67,7 +66,7 @@ public class MenuServiceImpl implements MenuService {
         //        .filter(menu -> StrUtil.isBlank(menu.getParentId()))
         //        .map(menu -> covertMenuNode(menu, menuList))
         //        .collect(Collectors.toList());
-        return result;
+        return menuList;
     }
 
     /**

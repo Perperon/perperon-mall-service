@@ -1,5 +1,6 @@
 package com.perperon.mall.mapper;
 
+import com.perperon.mall.dto.MenuDto;
 import com.perperon.mall.pojo.Menu;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -17,5 +18,5 @@ public interface MenuMapper extends Mapper<Menu> {
 
     List<String> selectPermsByUserId(String userId);
 
-    List<Menu> getMenuCodeByRoleId(String roleId);
+    List<MenuDto> getMenuCodeByRoleId(String roleId);
 }

@@ -15,6 +15,10 @@
     <result column="sort" jdbcType="INTEGER" property="sort" />
     <result column="level" jdbcType="INTEGER" property="level" />
 </resultMap>
+
+<resultMap id="BaseResultMapDto" type="com.perperon.mall.dto.MenuDto" extends="BaseResultMap">
+    <collection property="children" ofType="com.perperon.mall.dto.MenuDto" column="children"></collection>
+</resultMap>
     <sql id="basic_list">
         a.id,a.menu_name, a.perms, a.component, a.path, a.visible, a.icon, a.user_id, a.created, a.status, a.sort, a.level
     </sql>
@@ -44,7 +48,7 @@
           and r.status = 1
     </select>
 
-    <select id="getMenuCodeByRoleId" resultMap="BaseResultMap" parameterType="string">
+    <select id="getMenuCodeByRoleId" resultMap="BaseResultMapDto" parameterType="string">
         select <include refid="basic_list"/>
         from pp_menu as a
         left join pp_role_menu rm on rm.menu_id = a.id
