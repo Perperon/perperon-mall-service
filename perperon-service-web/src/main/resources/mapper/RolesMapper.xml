@@ -34,4 +34,15 @@
             </if>
         </where>
     </select>
+
+    <select id="getRolesById" parameterType="string" resultMap="BaseResultMap">
+        select <include refid="basic_list"/>
+        from pp_roles as a
+        left join pp_account_role ar on ar.role_id = a.id
+        <where>
+            <if test="accountId != null and accountId != ''">
+                and ar.account_id =#{accountId}
+            </if>
+        </where>
+    </select>
 </mapper>

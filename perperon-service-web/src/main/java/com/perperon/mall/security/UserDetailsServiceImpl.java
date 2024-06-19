@@ -4,8 +4,8 @@ import cn.hutool.core.util.ObjectUtil;
 import com.perperon.mall.common.exception.Asserts;
 import com.perperon.mall.entity.AccountUser;
 import com.perperon.mall.mapper.AccountMapper;
-import com.perperon.mall.mapper.MenuMapper;
 import com.perperon.mall.pojo.Account;
+import com.perperon.mall.service.RolesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,8 +23,9 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private AccountMapper accountMapper;
+
     @Autowired
-    private MenuMapper menuMapper;
+    private RolesService rolesService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -36,8 +37,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             Asserts.fail("用户已被禁用");
         }
         //查询对应权限信息
-        List<String> auth = menuMapper.selectPermsByUserId(account.getId());
+        List<String> userAuthority = rolesService.getUserAuthority(account.getId());
 
-        return new AccountUser(account,auth);
+        return new AccountUser(account,userAuthority);
     }
 }

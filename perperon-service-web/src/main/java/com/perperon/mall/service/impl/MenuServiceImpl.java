@@ -3,17 +3,21 @@ package com.perperon.mall.service.impl;
 import com.github.pagehelper.PageInfo;
 import com.github.xiaoymin.knife4j.core.util.StrUtil;
 import com.perperon.mall.dto.MenuDto;
+import com.perperon.mall.entity.AccountUser;
 import com.perperon.mall.mapper.MenuMapper;
+import com.perperon.mall.mapper.RolesMapper;
 import com.perperon.mall.pojo.Menu;
+import com.perperon.mall.pojo.Roles;
 import com.perperon.mall.service.MenuService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.common.Mapper;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -27,6 +31,9 @@ public class MenuServiceImpl implements MenuService {
     @Resource
     private MenuMapper menuMapper;
 
+    @Resource
+    private RolesMapper rolesMapper;
+
     @Override
     public Mapper<Menu> getMapper() {
         return menuMapper;
@@ -39,11 +46,27 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<MenuDto> treeList() {
-        List<Menu> menuList = menuMapper.selectAll();
-        List<MenuDto> result = menuList.stream()
-                .filter(menu -> StrUtil.isBlank(menu.getParentId()))
-                .map(menu -> covertMenuNode(menu, menuList))
-                .collect(Collectors.toList());
+        // 获取当前用户
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AccountUser accountUser = (AccountUser) authentication.getPrincipal();
+        List<Roles> roleList = rolesMapper.getRolesById(accountUser.getAccount().getId());
+
+        Set<Menu> menuSet  = new HashSet<>();
+        for(Roles role : roleList) {
+            List<Menu> menuList = menuMapper.getMenuCodeByRoleId(role.getId());
+            for(Menu menu : menuList) {
+                menuSet.add(menu);
+
+            }
+        }
+        List<Menu> menuList = new ArrayList<>(menuSet);
+        //排序
+        menuList.sort(Comparator.comparingInt(Menu::getSort));
+
+        //List<MenuDto> result = menuList.stream()
+        //        .filter(menu -> StrUtil.isBlank(menu.getParentId()))
+        //        .map(menu -> covertMenuNode(menu, menuList))
+        //        .collect(Collectors.toList());
         return result;
     }
 

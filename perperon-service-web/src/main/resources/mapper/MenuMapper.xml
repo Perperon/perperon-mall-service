@@ -43,4 +43,15 @@
           and a.status = 1
           and r.status = 1
     </select>
+
+    <select id="getMenuCodeByRoleId" resultMap="BaseResultMap" parameterType="string">
+        select <include refid="basic_list"/>
+        from pp_menu as a
+        left join pp_role_menu rm on rm.menu_id = a.id
+        <where>
+            <if test="roleId != null and roleId != ''">
+                and rm.role_id =#{roleId}
+            </if>
+        </where>
+    </select>
 </mapper>

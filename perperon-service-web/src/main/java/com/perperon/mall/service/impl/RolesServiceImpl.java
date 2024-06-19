@@ -1,11 +1,13 @@
 package com.perperon.mall.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageInfo;
-import com.github.xiaoymin.knife4j.core.util.StrUtil;
 import com.perperon.mall.dto.MenuDto;
 import com.perperon.mall.dto.RolesDto;
+import com.perperon.mall.mapper.MenuMapper;
 import com.perperon.mall.mapper.RoleMenuMapper;
 import com.perperon.mall.mapper.RolesMapper;
+import com.perperon.mall.pojo.Menu;
 import com.perperon.mall.pojo.RoleMenu;
 import com.perperon.mall.pojo.Roles;
 import com.perperon.mall.service.RolesService;
@@ -15,8 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.common.Mapper;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -33,6 +34,9 @@ public class RolesServiceImpl implements RolesService {
 
     @Resource
     private RoleMenuMapper roleMenuMapper;
+
+    @Resource
+    private MenuMapper menuMapper;
 
     @Override
     public Mapper<Roles> getMapper() {
@@ -67,5 +71,31 @@ public class RolesServiceImpl implements RolesService {
                 .map(subMenu -> covertMenuNode(subMenu, menuList)).collect(Collectors.toList());
         node.setChildren(children);
         return node;
+    }
+
+    public List<String> getUserAuthority(String id){
+        List<String> authList = new ArrayList<>();
+        //根据用户id获取所有的角色信息
+        List<Roles> roleList = rolesMapper.getRolesById(id);
+        if (roleList.size() > 0){
+            String collect = roleList.stream().map(r -> "ROLE_" + r.getCode()).collect(Collectors.joining(","));
+            authList.add(collect);
+        }
+        //遍历角色信息，获取权限标识，而且不重复
+        Set<String> menuCodeSet  = new HashSet<>();
+        for(Roles role : roleList) {
+            List<Menu> menuList = menuMapper.getMenuCodeByRoleId(role.getId());
+            for(Menu menu : menuList) {
+                if (StrUtil.isNotBlank(menu.getPerms())){
+                    menuCodeSet.add(menu.getPerms());
+                }
+            }
+        }
+        if (menuCodeSet.size() > 0){
+            List<String> collect = Arrays.asList(menuCodeSet.toArray(new String[0]));
+            authList.addAll(collect);
+        }
+        System.out.println("auth"+authList);
+        return authList;
     }
 }
