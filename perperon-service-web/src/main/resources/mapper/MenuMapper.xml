@@ -9,6 +9,7 @@
     <result column="path" jdbcType="VARCHAR" property="path" />
     <result column="visible" jdbcType="VARCHAR" property="visible" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="created" jdbcType="TIMESTAMP" property="created" />
     <result column="status" jdbcType="BIT" property="status" />
@@ -20,7 +21,7 @@
     <collection property="children" ofType="com.perperon.mall.dto.MenuDto" column="children"></collection>
 </resultMap>
     <sql id="basic_list">
-        a.id,a.menu_name, a.perms, a.component, a.path, a.visible, a.icon, a.user_id, a.created, a.status, a.sort, a.level
+        a.id,a.menu_name, a.perms, a.component, a.path, a.visible, a.icon, a.parent_id, a.user_id, a.created, a.status, a.sort, a.level
     </sql>
     <select id="listByPage" parameterType="map" resultMap="BaseResultMap">
         select <include refid="basic_list"/>

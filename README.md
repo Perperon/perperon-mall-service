@@ -1,1 +1,2 @@
 这是一个基于springcloud alibaba实现的基于微服务的电商系统
+Spring Security+jwt+redis的配置方式使用自定义接口实现登录登出认证

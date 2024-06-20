@@ -1,5 +1,6 @@
 package com.perperon.mall.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageInfo;
 import com.perperon.mall.dto.MenuDto;
 import com.perperon.mall.entity.AccountUser;
@@ -62,17 +63,17 @@ public class MenuServiceImpl implements MenuService {
         //排序
         menuList.sort(Comparator.comparingInt(Menu::getSort));
 
-        //List<MenuDto> result = menuList.stream()
-        //        .filter(menu -> StrUtil.isBlank(menu.getParentId()))
-        //        .map(menu -> covertMenuNode(menu, menuList))
-        //        .collect(Collectors.toList());
-        return menuList;
+        List<MenuDto> result = menuList.stream()
+                .filter(menu -> StrUtil.isBlank(menu.getParentId()))
+                .map(menu -> covertMenuNode(menu, menuList))
+                .collect(Collectors.toList());
+        return result;
     }
 
     /**
      * 将Menu转化为MenuDto并设置children属性
      */
-    private MenuDto covertMenuNode(Menu menu, List<Menu> menuList) {
+    private MenuDto covertMenuNode(MenuDto menu, List<MenuDto> menuList) {
         MenuDto node = new MenuDto();
         BeanUtils.copyProperties(menu, node);
         List<MenuDto> children = menuList.stream()
