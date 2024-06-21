@@ -97,4 +97,10 @@ public class RolesServiceImpl implements RolesService {
         System.out.println("auth"+authList);
         return authList;
     }
+
+    @Override
+    public List<Roles> getRoleList(String accountId) {
+        List<Roles> roles = rolesMapper.getRolesById(accountId);
+        return roles;
+    }
 }

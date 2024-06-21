@@ -13,4 +13,6 @@ public interface RolesService extends BaseService<Roles> {
 
     List<String> getUserAuthority(String id);
 
+    List<Roles> getRoleList(String accountId);
+
 }

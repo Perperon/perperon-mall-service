@@ -86,4 +86,5 @@ public class AccountServiceImpl  implements AccountService {
         int insertCount = getMapper().insert(obj);
         return CommonResult.success(obj);
     }
+
 }
