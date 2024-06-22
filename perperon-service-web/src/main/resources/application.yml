@@ -66,6 +66,11 @@ secure:
       - "/v2/api-docs"
       - "/*/*.js"
       - "/*/*.css"
+      - "/*/*.jpg"
       - "/*/*.png"
       - "/*/*.ico"
       - "/actuator/**"
+
+serverConfig:
+  attach: /attach
+  uploadPath: E:/files/download/

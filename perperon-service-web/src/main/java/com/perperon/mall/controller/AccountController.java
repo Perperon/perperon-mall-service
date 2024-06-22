@@ -63,7 +63,7 @@ public class AccountController extends BaseController<Account>{
     public CommonResult getInfo() {
         Account account = CurrentAccountUtil.getCurrentAdmin();
         Map<String, Object> data = new HashMap<>();
-        data.put("username", account.getUsername());
+        data.put("nickName", account.getNickName());
         data.put("menus", menuService.treeList());
         data.put("icon", account.getIcon());
         List<Roles> roleList = rolesService.getRoleList(account.getId());
