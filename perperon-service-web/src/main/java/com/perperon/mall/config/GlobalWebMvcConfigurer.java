@@ -1,4 +1,4 @@
-package com.perperon.mall.common.config;
+package com.perperon.mall.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
