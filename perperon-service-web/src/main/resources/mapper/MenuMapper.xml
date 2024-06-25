@@ -7,13 +7,12 @@
     <result column="perms" jdbcType="VARCHAR" property="perms" />
     <result column="component" jdbcType="VARCHAR" property="component" />
     <result column="path" jdbcType="VARCHAR" property="path" />
-    <result column="visible" jdbcType="VARCHAR" property="visible" />
+    <result column="menu_type" jdbcType="CHAR" property="menuType" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="created" jdbcType="TIMESTAMP" property="created" />
     <result column="status" jdbcType="BIT" property="status" />
-    <result column="sort" jdbcType="INTEGER" property="sort" />
     <result column="level" jdbcType="INTEGER" property="level" />
 </resultMap>
 
@@ -21,7 +20,7 @@
     <collection property="children" ofType="com.perperon.mall.dto.MenuDto" column="children"></collection>
 </resultMap>
     <sql id="basic_list">
-        a.id,a.menu_name, a.perms, a.component, a.path, a.visible, a.icon, a.parent_id, a.user_id, a.created, a.status, a.sort, a.level
+        a.id,a.menu_name, a.perms, a.component, a.path, a.menu_type, a.icon, a.parent_id, a.user_id, a.created, a.status, a.level
     </sql>
     <select id="listByPage" parameterType="map" resultMap="BaseResultMap">
         select <include refid="basic_list"/>
@@ -32,28 +31,25 @@
             </if>
         </where>
     </select>
-    <select id="selectPermsByUserId" resultType="string" parameterType="string">
-        select
-            a.perms
-        from
-            pp_account_role as ur
-            left join pp_roles as r on
-            ur.role_id = r.id
-            left join pp_role_menu as rm on
-            r.id = rm.role_id
-            left join pp_menu as a on
-            rm.menu_id = a.id
-        where
-            ur.account_id = #{userId}
-          and a.status = 1
-          and r.status = 1
+    <!--查询角色所属的权限-->
+    <select id="getPermsByRoleId" resultMap="BaseResultMapDto" parameterType="string">
+        select <include refid="basic_list"/>
+        from pp_menu as a
+        left join pp_role_menu rm on rm.menu_id = a.id
+        <where>
+            a.status = 1
+            <if test="roleId != null and roleId != ''">
+                and rm.role_id =#{roleId}
+            </if>
+        </where>
     </select>
-
+    <!--查询角色的菜单-->
     <select id="getMenuCodeByRoleId" resultMap="BaseResultMapDto" parameterType="string">
         select <include refid="basic_list"/>
         from pp_menu as a
         left join pp_role_menu rm on rm.menu_id = a.id
         <where>
+            a.menu_type in ('N','C') and a.status = 1
             <if test="roleId != null and roleId != ''">
                 and rm.role_id =#{roleId}
             </if>

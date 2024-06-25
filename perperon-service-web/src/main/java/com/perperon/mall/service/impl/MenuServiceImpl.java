@@ -61,7 +61,7 @@ public class MenuServiceImpl implements MenuService {
         }
         List<MenuDto> menuList = new ArrayList<>(menuSet);
         //排序
-        menuList.sort(Comparator.comparingInt(Menu::getSort));
+        menuList.sort(Comparator.comparingInt(Menu::getLevel));
 
         List<MenuDto> result = menuList.stream()
                 .filter(menu -> StrUtil.isBlank(menu.getParentId()))

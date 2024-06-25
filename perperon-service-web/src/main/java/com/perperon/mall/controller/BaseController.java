@@ -94,7 +94,7 @@ public abstract class BaseController<T> {
             resultMap.put("msg", "上传成功");
             Map<String,Object> data = new HashMap<>();
             data.put("title", fileName);
-            data.put("src", attach + fileName);
+            data.put("src", attach+"/"+ fileName);
             resultMap.put("data", data);
         }
         return resultMap;

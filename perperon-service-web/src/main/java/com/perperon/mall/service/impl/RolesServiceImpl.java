@@ -83,7 +83,7 @@ public class RolesServiceImpl implements RolesService {
         //遍历角色信息，获取权限标识，而且不重复
         Set<String> menuCodeSet  = new HashSet<>();
         for(Roles role : roleList) {
-            List<MenuDto> menuList = menuMapper.getMenuCodeByRoleId(role.getId());
+            List<MenuDto> menuList = menuMapper.getPermsByRoleId(role.getId());
             for(MenuDto menu : menuList) {
                 if (StrUtil.isNotBlank(menu.getPerms())){
                     menuCodeSet.add(menu.getPerms());
