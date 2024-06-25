@@ -67,6 +67,7 @@ secure:
       - "/*/*.js"
       - "/*/*.css"
       - "/*/*.jpg"
+      - "/*/*.jpeg"
       - "/*/*.png"
       - "/*/*.ico"
       - "/actuator/**"

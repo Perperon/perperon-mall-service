@@ -1,12 +1,18 @@
 package com.perperon.mall.controller;
 
-
 import com.perperon.mall.common.response.CommonPage;
 import com.perperon.mall.common.response.CommonResult;
 import com.perperon.mall.service.BaseService;
+import com.perperon.mall.utils.DateUtils;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -15,6 +21,12 @@ import java.util.Map;
  * @apiNote
  */
 public abstract class BaseController<T> {
+
+    @Value(value = "${serverConfig.uploadPath}")
+    private String uploadPath;
+    @Value(value = "${serverConfig.attach}")
+    private String attach;
+
 
     public abstract BaseService<T> getService();
 
@@ -68,5 +80,23 @@ public abstract class BaseController<T> {
     public Object getById(@PathVariable("id") String  id) {
         CommonResult<T> obj = getService().getById(id);
         return obj;
+    }
+
+    @RequestMapping("/upload")
+    public Map<String, Object> upload(MultipartFile file) throws IOException {
+        Map<String,Object> resultMap = new HashMap<>();
+        if (!file.isEmpty()){
+            String originalFilename = file.getOriginalFilename();
+            String suffixName = originalFilename.substring(originalFilename.lastIndexOf("."));
+            String fileName = DateUtils.getCurrenTime() + suffixName;
+            FileUtils.copyInputStreamToFile(file.getInputStream(),new File(uploadPath + fileName));
+            resultMap.put("code", 0);
+            resultMap.put("msg", "上传成功");
+            Map<String,Object> data = new HashMap<>();
+            data.put("title", fileName);
+            data.put("src", attach + fileName);
+            resultMap.put("data", data);
+        }
+        return resultMap;
     }
 }

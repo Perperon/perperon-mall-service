@@ -1,6 +1,7 @@
 package com.perperon.mall.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.extra.spring.SpringUtil;
 import com.github.pagehelper.PageInfo;
 import com.perperon.mall.cache.RedisCache;
 import com.perperon.mall.common.exception.Asserts;
@@ -67,6 +68,20 @@ public class AccountServiceImpl  implements AccountService {
         Map<String,Object> map = new HashMap<>();
         map.put("token",jwt);
         return CommonResult.success(map,"登录成功！");
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public CommonResult<Account> updatePwd(Account account) {
+        //验证原密码是否正确
+        Account user = accountMapper.selectByPrimaryKey(account.getId());
+        BCryptPasswordEncoder encoder = SpringUtil.getBean(BCryptPasswordEncoder.class);
+        if (encoder.matches(account.getOldPassword(), user.getPassword())) {
+            user.setPassword(encoder.encode(account.getNewPassword()));
+            int updateCount = accountMapper.updateByPrimaryKeySelective(user);
+            return CommonResult.success(user,"修改成功！");
+        }
+        return CommonResult.failed("旧密码与新密码不一致");
     }
 
     @Override

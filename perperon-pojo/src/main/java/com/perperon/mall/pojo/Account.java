@@ -62,4 +62,13 @@ public class Account implements Serializable {
 
     @ApiModelProperty(value = "帐号启用状态：0->禁用；1->启用")
     private Boolean status;
+
+    @Transient
+    private String roles;
+
+    @Transient
+    private String oldPassword;
+
+    @Transient
+    private String newPassword;
 }

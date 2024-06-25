@@ -57,6 +57,12 @@ public class AccountController extends BaseController<Account>{
         return accountService.logout();
     }
 
+    @PutMapping("/updatePwd")
+    @ApiOperation("更新")
+    public Object updatePwd(@RequestBody Account obj){
+        return accountService.updatePwd(obj);
+    }
+
     @ApiOperation(value = "获取当前登录用户信息")
     @RequestMapping(value = "/getInfo", method = RequestMethod.GET)
     @ResponseBody
@@ -67,6 +73,8 @@ public class AccountController extends BaseController<Account>{
         data.put("menus", menuService.treeList());
         data.put("icon", account.getIcon());
         List<Roles> roleList = rolesService.getRoleList(account.getId());
+        account.setRoles(roleList.stream().map(Roles::getName).collect(Collectors.joining(",")));
+        data.put("userInfo", account);
         if(CollUtil.isNotEmpty(roleList)){
             List<String> roles = roleList.stream().map(Roles::getName).collect(Collectors.toList());
             data.put("roles",roles);
