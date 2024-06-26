@@ -58,9 +58,15 @@ public class AccountController extends BaseController<Account>{
     }
 
     @PutMapping("/updatePwd")
-    @ApiOperation("更新")
+    @ApiOperation("修改密码")
     public Object updatePwd(@RequestBody Account obj){
         return accountService.updatePwd(obj);
+    }
+
+    @PutMapping("/resetPwd/{id}")
+    @ApiOperation("重置密码")
+    public Object resetPwd(@PathVariable("id") String id){
+        return accountService.resetPwd(id);
     }
 
     @ApiOperation(value = "获取当前登录用户信息")

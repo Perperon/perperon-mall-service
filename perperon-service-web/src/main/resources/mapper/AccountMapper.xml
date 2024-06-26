@@ -13,6 +13,8 @@
     <result column="created" jdbcType="TIMESTAMP" property="created" />
     <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
     <result column="status" jdbcType="BIT" property="status" />
+
+    <result column="roles" jdbcType="VARCHAR" property="roles" />
 </resultMap>
     <sql id="basic_list">
         a.id, a.username, a.password, a.icon, a.email, a.nick_name, a.remark, a.created, a.login_time, a.status, a.user_id
@@ -23,12 +25,18 @@
         where username = #{username}
     </select>
     <select id="listByPage" parameterType="map" resultMap="BaseResultMap">
-        select <include refid="basic_list"/>
+        select <include refid="basic_list"/>,GROUP_CONCAT(r.name) as roles
         from pp_account as a
+        left join pp_account_role ar on ar.account_id = a.id
+        left join pp_roles r on r.id = ar.role_id
         <where>
             <if test="username != null and username != ''">
                and a.username like concat('%', #{username}, '%')
             </if>
+            <if test="status != null and status != ''">
+                and a.status = #{status}
+            </if>
         </where>
+        group by a.id
     </select>
 </mapper>

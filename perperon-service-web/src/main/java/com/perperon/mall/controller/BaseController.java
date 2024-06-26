@@ -55,6 +55,12 @@ public abstract class BaseController<T> {
         return getService().delete(obj);
     }
 
+    @DeleteMapping("/deleteBatches")
+    @ApiOperation("批量删除")
+    public CommonResult<T> deleteBatches(@RequestBody String[] ids){
+        return getService().deleteBatches(ids);
+    }
+
     @DeleteMapping("/delete/{id}")
     @ApiOperation("按主键删除")
     public CommonResult<T> delete(@PathVariable("id") String id){

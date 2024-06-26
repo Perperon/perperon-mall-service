@@ -72,6 +72,16 @@ public class AccountServiceImpl  implements AccountService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
+    public CommonResult<Account> resetPwd(String id) {
+        Account user = accountMapper.selectByPrimaryKey(id);
+        BCryptPasswordEncoder encoder = SpringUtil.getBean(BCryptPasswordEncoder.class);
+        user.setPassword(encoder.encode("123456"));
+        accountMapper.updateByPrimaryKeySelective(user);
+        return CommonResult.success(user,"重置密码成功！");
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public CommonResult<Account> updatePwd(Account account) {
         //验证原密码是否正确
         Account user = accountMapper.selectByPrimaryKey(account.getId());

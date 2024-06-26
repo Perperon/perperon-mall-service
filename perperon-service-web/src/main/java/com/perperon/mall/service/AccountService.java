@@ -14,4 +14,6 @@ public interface AccountService extends BaseService<Account> {
     CommonResult<Account> logout();
 
     CommonResult<Account> updatePwd(Account account);
+
+    CommonResult<Account> resetPwd(String id);
 }

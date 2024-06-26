@@ -44,6 +44,14 @@ public interface BaseService<T> {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
+    default CommonResult<T> deleteBatches(String[] ids){
+        for (String id:ids){
+            int insertCount = getMapper().deleteByPrimaryKey(id);
+        }
+        return CommonResult.success(null,"全部删除成功");
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
     default CommonResult<T> deleteById(String id){
         int insertCount = getMapper().deleteByPrimaryKey(id);
         return CommonResult.success(null,"删除成功");
