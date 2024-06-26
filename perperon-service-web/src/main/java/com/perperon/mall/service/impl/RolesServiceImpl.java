@@ -2,18 +2,24 @@ package com.perperon.mall.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageInfo;
+import com.perperon.mall.common.response.CommonResult;
 import com.perperon.mall.dto.MenuDto;
 import com.perperon.mall.dto.RolesDto;
+import com.perperon.mall.mapper.AccountRoleMapper;
 import com.perperon.mall.mapper.MenuMapper;
 import com.perperon.mall.mapper.RoleMenuMapper;
 import com.perperon.mall.mapper.RolesMapper;
+import com.perperon.mall.pojo.AccountRole;
 import com.perperon.mall.pojo.RoleMenu;
 import com.perperon.mall.pojo.Roles;
 import com.perperon.mall.service.RolesService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.common.Mapper;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -36,6 +42,9 @@ public class RolesServiceImpl implements RolesService {
 
     @Resource
     private MenuMapper menuMapper;
+
+    @Resource
+    private AccountRoleMapper accountRoleMapper;
 
     @Override
     public Mapper<Roles> getMapper() {
@@ -102,5 +111,24 @@ public class RolesServiceImpl implements RolesService {
     public List<Roles> getRoleList(String accountId) {
         List<Roles> roles = rolesMapper.getRolesById(accountId);
         return roles;
+    }
+
+    @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ,propagation = Propagation.REQUIRED)
+    public CommonResult<Roles> grantRole(String accountId, List<String> roleIds) {
+        List<AccountRole> accountRoles = new ArrayList<>();
+        roleIds.forEach(id -> {
+            AccountRole accountRole = new AccountRole();
+            accountRole.setAccountId(accountId);
+            accountRole.setRoleId(id);
+            accountRoles.add(accountRole);
+        });
+        //删除已有用户角色关系重新分配
+        Example example = new Example(AccountRole.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("accountId", accountId);
+        accountRoleMapper.deleteByExample(example);
+        accountRoleMapper.saveList(accountRoles);
+        return CommonResult.success(null, "分配成功");
     }
 }

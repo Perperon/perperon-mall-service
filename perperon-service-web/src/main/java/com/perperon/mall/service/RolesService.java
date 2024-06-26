@@ -1,5 +1,6 @@
 package com.perperon.mall.service;
 
+import com.perperon.mall.common.response.CommonResult;
 import com.perperon.mall.pojo.Roles;
 
 import java.util.List;
@@ -14,5 +15,7 @@ public interface RolesService extends BaseService<Roles> {
     List<String> getUserAuthority(String id);
 
     List<Roles> getRoleList(String accountId);
+
+    CommonResult<Roles> grantRole(String accountId,List<String> roleIds);
 
 }

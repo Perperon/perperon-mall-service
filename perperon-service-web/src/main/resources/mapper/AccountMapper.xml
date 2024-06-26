@@ -16,6 +16,9 @@
 
     <result column="roles" jdbcType="VARCHAR" property="roles" />
 </resultMap>
+    <resultMap id="BaseResultMapDto" type="com.perperon.mall.dto.AccountDto" extends="BaseResultMap">
+        <collection property="roleList" ofType="com.perperon.mall.pojo.Roles" javaType="java.util.ArrayList" select="com.perperon.mall.mapper.RolesMapper.getRolesById" column="id"></collection>
+    </resultMap>
     <sql id="basic_list">
         a.id, a.username, a.password, a.icon, a.email, a.nick_name, a.remark, a.created, a.login_time, a.status, a.user_id
     </sql>
@@ -24,7 +27,7 @@
         from pp_account as a
         where username = #{username}
     </select>
-    <select id="listByPage" parameterType="map" resultMap="BaseResultMap">
+    <select id="listByPage" parameterType="map" resultMap="BaseResultMapDto">
         select <include refid="basic_list"/>,GROUP_CONCAT(r.name) as roles
         from pp_account as a
         left join pp_account_role ar on ar.account_id = a.id

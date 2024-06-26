@@ -32,6 +32,9 @@
             <if test="name != null and name != ''">
                 and a.name like concat('%', #{name}, '%')
             </if>
+            <if test="id != null and id != ''">
+                and a.id = #{id}
+            </if>
         </where>
     </select>
 

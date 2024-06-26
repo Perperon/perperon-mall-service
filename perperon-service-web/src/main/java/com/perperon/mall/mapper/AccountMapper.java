@@ -1,5 +1,6 @@
 package com.perperon.mall.mapper;
 
+import com.perperon.mall.dto.AccountDto;
 import com.perperon.mall.pojo.Account;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -15,5 +16,5 @@ public interface AccountMapper extends Mapper<Account> {
 
     Account selectByUsername(String username);
 
-    List<Account> listByPage(Map<String, Object> map);
+    List<AccountDto> listByPage(Map<String, Object> map);
 }
