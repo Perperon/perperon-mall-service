@@ -20,7 +20,7 @@
             (
             (SELECT UUID() AS id),
             #{item.accountId},
-            #{item.role-d},
+            #{item.roleId},
             #{item.userId}
             )
         </foreach>
