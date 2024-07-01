@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,17 +34,23 @@ public class MenuController extends BaseController<Menu>{
     }
 
 
-    @GetMapping(value = "/listPage")
-    @ApiOperation(value = "查询菜单", notes = "查询菜单")
-    public Object listPage(@RequestParam Map<String,Object> params) {
-        return menuService.listByPage(params);
+    @GetMapping(value = "/treeMenuList")
+    @ApiOperation("树形结构返回所有菜单列表")
+    public CommonResult<List<MenuDto>> treeMenuList(Map<String,Object> params) {
+        List<MenuDto> list = menuService.treeMenuList(params);
+        return CommonResult.success(list);
     }
 
-    @ApiOperation("树形结构返回所有菜单列表")
-    @GetMapping(value = "/treeList")
-    @ResponseBody
-    public CommonResult<List<MenuDto>> treeList() {
-        List<MenuDto> list = menuService.treeList();
-        return CommonResult.success(list);
+    @GetMapping(value = "/menuRoleList/{roleId}")
+    @ApiOperation("查询角色所拥有的菜单权限")
+    public Object menuRoleList(@PathVariable("roleId") String roleId) {
+        return menuService.menuRoleList(roleId);
+    }
+
+    @PostMapping("/grantMenu")
+    @ApiOperation(value = "角色分配菜单权限", notes = "角色分配菜单权限")
+    public Object grantMenu(@RequestBody Map<String, Object> params) {
+        List<String> menus = (ArrayList) params.get("menus");
+        return menuService.grantMenu(params.get("roleId").toString(), menus);
     }
 }

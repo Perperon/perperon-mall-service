@@ -17,4 +17,6 @@ public interface RoleMenuMapper extends Mapper<RoleMenu> {
    List<RoleMenu> listByPage(Map<String, Object> params);
 
    List<RoleMenu> listByRoleId(@Param("roleId") String roleId);
+
+   int saveList(List<RoleMenu> list);
 }

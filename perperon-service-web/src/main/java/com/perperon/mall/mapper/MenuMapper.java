@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public interface MenuMapper extends Mapper<Menu> {
 
-    List<Menu> listByPage(Map<String, Object> map);
+    List<MenuDto> listByPage(Map<String, Object> map);
 
     List<MenuDto> getPermsByRoleId(String roleId);
 

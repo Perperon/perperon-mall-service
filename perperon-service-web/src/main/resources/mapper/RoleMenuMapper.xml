@@ -42,4 +42,24 @@
             </if>
         </where>
     </select>
+
+    <insert id="saveList"  parameterType="java.util.List" >
+
+        insert into pp_role_menu
+        (
+        id,
+        role_id,
+        menu_id,
+        user_id
+        )
+        values
+        <foreach collection="list" item="item" index= "index" separator =",">
+            (
+            (SELECT UUID() AS id),
+            #{item.roleId},
+            #{item.menuId},
+            #{item.userId}
+            )
+        </foreach>
+    </insert>
 </mapper>
