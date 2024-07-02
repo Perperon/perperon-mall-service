@@ -70,7 +70,7 @@ public class MenuServiceImpl implements MenuService {
         }
         List<MenuDto> menuList = new ArrayList<>(menuSet);
         //排序
-        menuList.sort(Comparator.comparingInt(Menu::getLevel));
+        menuList.sort(Comparator.nullsLast(Comparator.comparingInt(Menu::getSort)));
 
         List<MenuDto> result = menuList.stream()
                 .filter(menu -> StrUtil.isBlank(menu.getParentId()))
@@ -84,7 +84,7 @@ public class MenuServiceImpl implements MenuService {
         // 查询所有菜单
         List<MenuDto> menuList = menuMapper.listByPage(params);
         //排序
-        menuList.sort(Comparator.comparingInt(Menu::getLevel));
+        menuList.sort(Comparator.nullsLast(Comparator.comparingInt(Menu::getSort)));
         List<MenuDto> result = menuList.stream()
                 .filter(menu -> StrUtil.isBlank(menu.getParentId()))
                 .map(menu -> covertMenuNode(menu, menuList))
