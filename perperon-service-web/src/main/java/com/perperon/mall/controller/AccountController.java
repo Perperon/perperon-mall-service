@@ -78,6 +78,7 @@ public class AccountController extends BaseController<Account>{
         data.put("nickName", account.getNickName());
         data.put("menus", menuService.treeList());
         data.put("icon", account.getIcon());
+        data.put("permissions", rolesService.getUserAuthority(account.getId()));
         List<Roles> roleList = rolesService.getRoleList(account.getId());
         account.setRoles(roleList.stream().map(Roles::getName).collect(Collectors.joining(",")));
         data.put("userInfo", account);

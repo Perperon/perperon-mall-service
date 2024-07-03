@@ -39,6 +39,7 @@ public abstract class BaseController<T> {
 
     @PostMapping("/create")
     @ApiOperation("添加")
+    //@PreAuthorize("@ps.hasPerm('*:add')")
     public CommonResult<T> create(@RequestBody T obj){
         return getService().create(obj);
     }
