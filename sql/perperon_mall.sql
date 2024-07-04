@@ -11,7 +11,7 @@
  Target Server Version : 50721
  File Encoding         : 65001
 
- Date: 02/07/2024 15:27:15
+ Date: 04/07/2024 15:52:35
 */
 
 SET NAMES utf8mb4;
@@ -40,7 +40,7 @@ CREATE TABLE `pp_account`  (
 -- Records of pp_account
 -- ----------------------------
 INSERT INTO `pp_account` VALUES ('f520b246-2d18-11ef-b6ec-80e82cda4197', 'perperon', '$2a$10$zxc3GxyWVV7pAJuB9VN4sesQo0LTFQi.nZylHvG0P1.LDZ6AOdX8u', '/attach/20240627122306000000110.jpg', '15215015915@163.com', '杜鹏程', NULL, b'1', '2024-06-18 10:17:48', NULL, '2024-07-01 15:39:02');
-INSERT INTO `pp_account` VALUES ('f54963d8-15a3-11ef-a15d-d8bbc147c16b', 'admin', '$2a$10$nEZLtBc7r0Ja/evkiKkRDO1zx4ElB9NeT8DRUhdX5MKli3RBa1fZW', '/attach/avatar.jpeg', '1443528055@qq.com', 'perperon', NULL, b'1', '2024-05-19 00:00:00', NULL, '2024-07-02 14:43:50');
+INSERT INTO `pp_account` VALUES ('f54963d8-15a3-11ef-a15d-d8bbc147c16b', 'admin', '$2a$10$nEZLtBc7r0Ja/evkiKkRDO1zx4ElB9NeT8DRUhdX5MKli3RBa1fZW', '/attach/avatar.jpeg', '1443528055@qq.com', 'perperon', NULL, b'1', '2024-05-19 00:00:00', NULL, '2024-07-04 09:14:58');
 
 -- ----------------------------
 -- Table structure for pp_account_role
@@ -88,15 +88,24 @@ CREATE TABLE `pp_menu`  (
 -- ----------------------------
 -- Records of pp_menu
 -- ----------------------------
+INSERT INTO `pp_menu` VALUES ('0db5e793-39ce-11ef-a774-80e82cda4197', '角色修改', 'role:update', '', 'edit', '', b'1', 'F', 'b1e4fb5c-2d42-11ef-b6ec-80e82cda4197', '2024-07-04 14:24:21', NULL, 3, 2);
+INSERT INTO `pp_menu` VALUES ('1111ce79-39a3-11ef-a774-80e82cda4197', '菜单修改', 'menu:update', '', 'update', '', b'1', 'F', '6dcb89b1-2d26-11ef-b6ec-80e82cda4197', '2024-07-04 09:16:40', NULL, 3, 2);
+INSERT INTO `pp_menu` VALUES ('2fe8c39a-39ce-11ef-a774-80e82cda4197', '角色删除', 'role:delete', '', 'delete', '', b'1', 'F', 'b1e4fb5c-2d42-11ef-b6ec-80e82cda4197', '2024-07-04 14:25:18', NULL, 3, 3);
+INSERT INTO `pp_menu` VALUES ('368bfe0d-3914-11ef-87cf-80e82cda4197', '菜单添加', 'menu:add', '', 'add', '', b'1', 'F', '6dcb89b1-2d26-11ef-b6ec-80e82cda4197', '2024-07-03 16:14:02', NULL, 3, 1);
+INSERT INTO `pp_menu` VALUES ('6582716e-39ce-11ef-a774-80e82cda4197', '用户添加', 'account:add', '', 'add', '', b'1', 'F', 'c59a854a-2794-11ef-920f-80e82cda4197', '2024-07-04 14:26:48', NULL, 3, 1);
 INSERT INTO `pp_menu` VALUES ('66434385-2d26-11ef-b6ec-80e82cda4197', '权限管理', 'roles', '', 'auth', '/role', b'1', 'N', NULL, '2024-06-18 11:54:01', NULL, 1, 1);
 INSERT INTO `pp_menu` VALUES ('67e9a508-3841-11ef-90e3-80e82cda4197', '字典管理', 'dictionary', NULL, 'dictionary', '/dictionary', b'1', 'N', '', '2024-07-02 15:05:02', NULL, 1, 4);
 INSERT INTO `pp_menu` VALUES ('6dcb89b1-2d26-11ef-b6ec-80e82cda4197', '菜单列表', 'menu:list', '/auth/menu/index', 'menu_list', '/menu/list', b'1', 'C', '66434385-2d26-11ef-b6ec-80e82cda4197', '2024-06-18 11:54:14', '', 2, 1);
-INSERT INTO `pp_menu` VALUES ('aa6282ad-3843-11ef-90e3-80e82cda4197', '字典列表', 'dictionary:list', NULL, 'dictionary_list', '/dictionary/list', b'1', 'C', '67e9a508-3841-11ef-90e3-80e82cda4197', '2024-07-02 15:21:12', NULL, 2, NULL);
+INSERT INTO `pp_menu` VALUES ('7daaab22-39ce-11ef-a774-80e82cda4197', '用户修改', 'account:update', '', 'edit', '', b'1', 'F', 'c59a854a-2794-11ef-920f-80e82cda4197', '2024-07-04 14:27:28', NULL, 3, 2);
+INSERT INTO `pp_menu` VALUES ('863a2f1f-39b9-11ef-a774-80e82cda4197', '角色增加', 'role:add', '', 'add', '', b'1', 'F', 'b1e4fb5c-2d42-11ef-b6ec-80e82cda4197', '2024-07-04 11:57:25', NULL, 3, 1);
+INSERT INTO `pp_menu` VALUES ('90a03fac-39ce-11ef-a774-80e82cda4197', '用户删除', 'account:delete', '', 'delete', '', b'1', 'F', 'c59a854a-2794-11ef-920f-80e82cda4197', '2024-07-04 14:28:00', NULL, 3, 3);
+INSERT INTO `pp_menu` VALUES ('aa6282ad-3843-11ef-90e3-80e82cda4197', '字典列表', 'dictionary:list', '/dictionary/index', 'dictionary_list', '/dictionary/list', b'1', 'C', '67e9a508-3841-11ef-90e3-80e82cda4197', '2024-07-02 15:21:12', NULL, 2, 1);
 INSERT INTO `pp_menu` VALUES ('b1e4fb5c-2d42-11ef-b6ec-80e82cda4197', '角色列表', 'role:list', '/auth/role/index', 'role_list', '/role/list', b'1', 'C', '66434385-2d26-11ef-b6ec-80e82cda4197', '2024-06-18 11:54:14', '', 2, 2);
 INSERT INTO `pp_menu` VALUES ('bab9f995-2794-11af-960f-80e82cda4198', '商品管理', 'product', '', 'product', '/product', b'1', 'N', NULL, '2024-05-20 10:38:55', NULL, 1, 2);
 INSERT INTO `pp_menu` VALUES ('bab9f995-2794-11ef-920f-80e82cda4197', '用户管理', 'account', '', 'user', '/account', b'1', 'N', NULL, '2024-06-11 09:48:32', NULL, 1, 3);
 INSERT INTO `pp_menu` VALUES ('bab9f995-2794-11ef-920f-80e82cda4198', '商品列表', 'puduct:list', '/product/index', 'product_list', '/product/list', b'1', 'C', 'bab9f995-2794-11af-960f-80e82cda4198', '2024-06-03 22:25:50', NULL, 2, 1);
 INSERT INTO `pp_menu` VALUES ('c59a854a-2794-11ef-920f-80e82cda4197', '用户列表', 'account:list', '/account/index', 'user_list', '/account/list', b'1', 'C', 'bab9f995-2794-11ef-920f-80e82cda4197', '2024-06-11 09:48:50', '', 2, 1);
+INSERT INTO `pp_menu` VALUES ('f5b9b6e3-39b8-11ef-a774-80e82cda4197', '菜单删除', 'menu:delete', '', 'delete', '', b'1', 'F', '6dcb89b1-2d26-11ef-b6ec-80e82cda4197', '2024-07-04 11:53:23', NULL, 3, 3);
 
 -- ----------------------------
 -- Table structure for pp_role_menu
@@ -114,18 +123,25 @@ CREATE TABLE `pp_role_menu`  (
 -- ----------------------------
 -- Records of pp_role_menu
 -- ----------------------------
-INSERT INTO `pp_role_menu` VALUES ('64efda1f-2d50-11ef-b6ec-80e82cda419', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', '66434385-2d26-11ef-b6ec-80e82cda4197', '2024-05-20 11:03:03', NULL);
-INSERT INTO `pp_role_menu` VALUES ('b75e7508-3294-11ef-b64d-80e82cda4197', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', 'bab9f995-2794-11ef-920f-80e82cda4197', '2024-06-25 09:46:16', NULL);
-INSERT INTO `pp_role_menu` VALUES ('b75f2c00-3294-11ef-b64d-80e82cda4197', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', 'c59a854a-2794-11ef-920f-80e82cda4197', '2024-06-25 09:46:16', NULL);
-INSERT INTO `pp_role_menu` VALUES ('e7b1d371-377c-11ef-acb1-00ff59042dc6', '93ed1de2-2d48-11ef-b6ec-80e82cda4197', '66434385-2d26-11ef-b6ec-80e82cda4197', '2024-07-01 15:38:19', NULL);
-INSERT INTO `pp_role_menu` VALUES ('e7b1eb4e-377c-11ef-acb1-00ff59042dc6', '93ed1de2-2d48-11ef-b6ec-80e82cda4197', '6dcb89b1-2d26-11ef-b6ec-80e82cda4197', '2024-07-01 15:38:19', NULL);
-INSERT INTO `pp_role_menu` VALUES ('e7b1ec7d-377c-11ef-acb1-00ff59042dc6', '93ed1de2-2d48-11ef-b6ec-80e82cda4197', 'b1e4fb5c-2d42-11ef-b6ec-80e82cda4197', '2024-07-01 15:38:19', NULL);
-INSERT INTO `pp_role_menu` VALUES ('e7b1ecdd-377c-11ef-acb1-00ff59042dc6', '93ed1de2-2d48-11ef-b6ec-80e82cda4197', 'bab9f995-2794-11af-960f-80e82cda4198', '2024-07-01 15:38:19', NULL);
-INSERT INTO `pp_role_menu` VALUES ('e7b1ed1a-377c-11ef-acb1-00ff59042dc6', '93ed1de2-2d48-11ef-b6ec-80e82cda4197', 'bab9f995-2794-11ef-920f-80e82cda4198', '2024-07-01 15:38:19', NULL);
-INSERT INTO `pp_role_menu` VALUES ('e7b1ed4d-377c-11ef-acb1-00ff59042dc6', '93ed1de2-2d48-11ef-b6ec-80e82cda4197', 'bab9f995-2794-11ef-920f-80e82cda4197', '2024-07-01 15:38:19', NULL);
-INSERT INTO `pp_role_menu` VALUES ('e7b1ed80-377c-11ef-acb1-00ff59042dc6', '93ed1de2-2d48-11ef-b6ec-80e82cda4197', 'c59a854a-2794-11ef-920f-80e82cda4197', '2024-07-01 15:38:19', NULL);
-INSERT INTO `pp_role_menu` VALUES ('f4efda1f-2d50-11ef-b6ec-80e82cda4197', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', '6dcb89b1-2d26-11ef-b6ec-80e82cda4197', '2024-06-18 16:58:40', NULL);
-INSERT INTO `pp_role_menu` VALUES ('f4f09bee-2d50-11ef-b6ec-80e82cda4197', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', 'b1e4fb5c-2d42-11ef-b6ec-80e82cda4197', '2024-06-18 16:58:40', NULL);
+INSERT INTO `pp_role_menu` VALUES ('1bad63a8-39cf-11ef-a774-80e82cda4197', '93ed1de2-2d48-11ef-b6ec-80e82cda4197', '66434385-2d26-11ef-b6ec-80e82cda4197', '2024-07-04 14:31:54', NULL);
+INSERT INTO `pp_role_menu` VALUES ('1bad6685-39cf-11ef-a774-80e82cda4197', '93ed1de2-2d48-11ef-b6ec-80e82cda4197', '6dcb89b1-2d26-11ef-b6ec-80e82cda4197', '2024-07-04 14:31:54', NULL);
+INSERT INTO `pp_role_menu` VALUES ('1bad66e9-39cf-11ef-a774-80e82cda4197', '93ed1de2-2d48-11ef-b6ec-80e82cda4197', 'b1e4fb5c-2d42-11ef-b6ec-80e82cda4197', '2024-07-04 14:31:54', NULL);
+INSERT INTO `pp_role_menu` VALUES ('1bad6735-39cf-11ef-a774-80e82cda4197', '93ed1de2-2d48-11ef-b6ec-80e82cda4197', 'bab9f995-2794-11ef-920f-80e82cda4197', '2024-07-04 14:31:54', NULL);
+INSERT INTO `pp_role_menu` VALUES ('1bad6774-39cf-11ef-a774-80e82cda4197', '93ed1de2-2d48-11ef-b6ec-80e82cda4197', 'c59a854a-2794-11ef-920f-80e82cda4197', '2024-07-04 14:31:54', NULL);
+INSERT INTO `pp_role_menu` VALUES ('efcb3a74-39ce-11ef-a774-80e82cda4197', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', '66434385-2d26-11ef-b6ec-80e82cda4197', '2024-07-04 14:30:40', NULL);
+INSERT INTO `pp_role_menu` VALUES ('efcb3d75-39ce-11ef-a774-80e82cda4197', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', '6dcb89b1-2d26-11ef-b6ec-80e82cda4197', '2024-07-04 14:30:40', NULL);
+INSERT INTO `pp_role_menu` VALUES ('efcb3de6-39ce-11ef-a774-80e82cda4197', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', '368bfe0d-3914-11ef-87cf-80e82cda4197', '2024-07-04 14:30:40', NULL);
+INSERT INTO `pp_role_menu` VALUES ('efcb3e2a-39ce-11ef-a774-80e82cda4197', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', '1111ce79-39a3-11ef-a774-80e82cda4197', '2024-07-04 14:30:40', NULL);
+INSERT INTO `pp_role_menu` VALUES ('efcb3e67-39ce-11ef-a774-80e82cda4197', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', 'f5b9b6e3-39b8-11ef-a774-80e82cda4197', '2024-07-04 14:30:40', NULL);
+INSERT INTO `pp_role_menu` VALUES ('efcb3ea6-39ce-11ef-a774-80e82cda4197', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', 'b1e4fb5c-2d42-11ef-b6ec-80e82cda4197', '2024-07-04 14:30:40', NULL);
+INSERT INTO `pp_role_menu` VALUES ('efcb3f09-39ce-11ef-a774-80e82cda4197', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', '863a2f1f-39b9-11ef-a774-80e82cda4197', '2024-07-04 14:30:40', NULL);
+INSERT INTO `pp_role_menu` VALUES ('efcb3f3f-39ce-11ef-a774-80e82cda4197', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', '0db5e793-39ce-11ef-a774-80e82cda4197', '2024-07-04 14:30:40', NULL);
+INSERT INTO `pp_role_menu` VALUES ('efcb3f73-39ce-11ef-a774-80e82cda4197', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', '2fe8c39a-39ce-11ef-a774-80e82cda4197', '2024-07-04 14:30:40', NULL);
+INSERT INTO `pp_role_menu` VALUES ('efcb3fb3-39ce-11ef-a774-80e82cda4197', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', 'bab9f995-2794-11ef-920f-80e82cda4197', '2024-07-04 14:30:40', NULL);
+INSERT INTO `pp_role_menu` VALUES ('efcb3fe9-39ce-11ef-a774-80e82cda4197', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', 'c59a854a-2794-11ef-920f-80e82cda4197', '2024-07-04 14:30:40', NULL);
+INSERT INTO `pp_role_menu` VALUES ('efcb401d-39ce-11ef-a774-80e82cda4197', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', '6582716e-39ce-11ef-a774-80e82cda4197', '2024-07-04 14:30:40', NULL);
+INSERT INTO `pp_role_menu` VALUES ('efcb406a-39ce-11ef-a774-80e82cda4197', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', '7daaab22-39ce-11ef-a774-80e82cda4197', '2024-07-04 14:30:40', NULL);
+INSERT INTO `pp_role_menu` VALUES ('efcb40a0-39ce-11ef-a774-80e82cda4197', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', '90a03fac-39ce-11ef-a774-80e82cda4197', '2024-07-04 14:30:40', NULL);
 
 -- ----------------------------
 -- Table structure for pp_roles
