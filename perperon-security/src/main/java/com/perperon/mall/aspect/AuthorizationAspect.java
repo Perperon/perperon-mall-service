@@ -1,6 +1,5 @@
 package com.perperon.mall.aspect;
 
-import cn.hutool.extra.spring.SpringUtil;
 import com.perperon.mall.annotation.PreAuthorize;
 import com.perperon.mall.common.response.CommonResult;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -8,9 +7,12 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.expression.Expression;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.expression.BeanFactoryResolver;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -25,6 +27,9 @@ import java.lang.reflect.Method;
 public class AuthorizationAspect {
 
     private static final ExpressionParser EXPRESSION_PARSER = new SpelExpressionParser();
+
+    @Autowired
+    private ApplicationContext context;
 
     @Pointcut("@annotation(com.perperon.mall.annotation.PreAuthorize)")
     public void pt() {
@@ -43,9 +48,11 @@ public class AuthorizationAspect {
             // 获取注解的值，即权限验证的条件
             String condition = annotation.value();
             // 使用 SpEL 表达式解析器解析权限验证条件
-            Expression expression = EXPRESSION_PARSER.parseExpression(condition);
-            // 获取 Spring 容器中的 PermissionService Bean，并执行权限验证条件
-            if (Boolean.TRUE.equals(expression.getValue(SpringUtil.getBean(AuthorityPerms.class), Boolean.class))) {
+            StandardEvaluationContext context = new StandardEvaluationContext();
+            context.setBeanResolver(new BeanFactoryResolver(this.context));
+            Boolean expression = (Boolean) EXPRESSION_PARSER.parseExpression(condition).getValue(context);
+            // 获取 Spring 容器中的 AuthorityPerms Bean，并执行权限验证条件
+            if (expression) {
                 // 权限验证通过，继续执行连接点方法
                 return (CommonResult) joinPoint.proceed();
             } else {

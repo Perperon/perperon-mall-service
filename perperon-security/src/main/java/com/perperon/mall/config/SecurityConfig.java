@@ -33,7 +33,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true) //开启方法级权限控制
+@EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled = true) //开启方法级权限控制
 public class SecurityConfig {
 
     @Autowired
