@@ -76,16 +76,28 @@ public class AccountController extends BaseController<Account>{
         Account account = CurrentAccountUtil.getCurrentAdmin();
         Map<String, Object> data = new HashMap<>();
         data.put("nickName", account.getNickName());
-        data.put("menus", menuService.treeList());
+        //data.put("menus", menuService.treeList());
         data.put("icon", account.getIcon());
-        data.put("permissions", rolesService.getUserAuthority(account.getId()));
+        //data.put("permissions", rolesService.getUserAuthority(account.getId()));
         List<Roles> roleList = rolesService.getRoleList(account.getId());
         account.setRoles(roleList.stream().map(Roles::getName).collect(Collectors.joining(",")));
         data.put("userInfo", account);
         if(CollUtil.isNotEmpty(roleList)){
             List<String> roles = roleList.stream().map(Roles::getName).collect(Collectors.toList());
             data.put("roles",roles);
+            data.put("roleList",roleList);
         }
+        return CommonResult.success(data);
+    }
+
+    @ApiOperation(value = "获取当前角色的菜单权限信息")
+    @RequestMapping(value = "/getMenu/{roleId}", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult getMenu(@PathVariable("roleId") String roleId) {
+        Account account = CurrentAccountUtil.getCurrentAdmin();
+        Map<String, Object> data = new HashMap<>();
+        data.put("menus", menuService.treeList(roleId));
+        data.put("permissions", rolesService.getUserAuthority(account.getId(),roleId));
         return CommonResult.success(data);
     }
 }

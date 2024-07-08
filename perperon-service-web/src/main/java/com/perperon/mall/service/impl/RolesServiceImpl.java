@@ -81,10 +81,10 @@ public class RolesServiceImpl implements RolesService {
         return node;
     }
 
-    public List<String> getUserAuthority(String id){
+    public List<String> getUserAuthority(String accountId,String roleId){
         List<String> authList = new ArrayList<>();
-        //根据用户id获取所有的角色信息
-        List<Roles> roleList = rolesMapper.getRolesById(id);
+        //根据用户id与角色id获取所有的角色信息
+        List<Roles> roleList = rolesMapper.getRolesByParams(accountId,roleId);
         if (roleList.size() > 0){
             String collect = roleList.stream().map(r -> "ROLE_" + r.getCode()).collect(Collectors.joining(","));
             authList.add(collect);
@@ -109,7 +109,7 @@ public class RolesServiceImpl implements RolesService {
 
     @Override
     public List<Roles> getRoleList(String accountId) {
-        List<Roles> roles = rolesMapper.getRolesById(accountId);
+        List<Roles> roles = rolesMapper.getRolesByParams(accountId,null);
         return roles;
     }
 

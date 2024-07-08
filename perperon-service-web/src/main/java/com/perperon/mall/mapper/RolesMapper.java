@@ -18,4 +18,6 @@ public interface RolesMapper extends Mapper<Roles> {
    List<RolesDto> listByPage(Map<String, Object> params);
 
    List<Roles> getRolesById(@Param("accountId") String accountId);
+
+   List<Roles> getRolesByParams(@Param("accountId") String accountId,@Param("roleId") String roleId);
 }

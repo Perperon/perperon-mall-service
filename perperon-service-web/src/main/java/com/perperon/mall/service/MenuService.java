@@ -19,7 +19,7 @@ public interface MenuService extends BaseService<Menu> {
     /**
      * 树形结构返回角色所拥有的菜单列表
      */
-    List<MenuDto> treeList();
+    List<MenuDto> treeList(String roleId);
 
 
     List<MenuDto> treeMenuList(Map<String,Object> params);

@@ -5,17 +5,13 @@ import com.github.pagehelper.PageInfo;
 import com.perperon.mall.common.response.CommonResult;
 import com.perperon.mall.dto.MenuDto;
 import com.perperon.mall.dto.RolesDto;
-import com.perperon.mall.entity.AccountUser;
 import com.perperon.mall.mapper.MenuMapper;
 import com.perperon.mall.mapper.RoleMenuMapper;
 import com.perperon.mall.mapper.RolesMapper;
 import com.perperon.mall.pojo.Menu;
 import com.perperon.mall.pojo.RoleMenu;
-import com.perperon.mall.pojo.Roles;
 import com.perperon.mall.service.MenuService;
 import org.springframework.beans.BeanUtils;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -55,26 +51,25 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<MenuDto> treeList() {
+    public List<MenuDto> treeList(String roleId) {
         // 获取当前用户
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         AccountUser accountUser = (AccountUser) authentication.getPrincipal();
-        List<Roles> roleList = rolesMapper.getRolesById(accountUser.getAccount().getId());
+        List<Roles> roleList = rolesMapper.getRolesById(accountUser.getAccount().getId());*/
 
         Set<MenuDto> menuSet  = new HashSet<>();
-        for(Roles role : roleList) {
-            List<MenuDto> menuList = menuMapper.getMenuCodeByRoleId(role.getId());
-            for(MenuDto menu : menuList) {
-                menuSet.add(menu);
-            }
+        List<MenuDto> menuList = menuMapper.getMenuCodeByRoleId(roleId);
+        //去重
+        for(MenuDto menu : menuList) {
+            menuSet.add(menu);
         }
-        List<MenuDto> menuList = new ArrayList<>(menuSet);
+        List<MenuDto> menus = new ArrayList<>(menuSet);
         //排序
         menuList.sort(Comparator.nullsLast(Comparator.comparingInt(Menu::getSort)));
 
         List<MenuDto> result = menuList.stream()
                 .filter(menu -> StrUtil.isBlank(menu.getParentId()))
-                .map(menu -> covertMenuNode(menu, menuList))
+                .map(menu -> covertMenuNode(menu, menus))
                 .collect(Collectors.toList());
         return result;
     }

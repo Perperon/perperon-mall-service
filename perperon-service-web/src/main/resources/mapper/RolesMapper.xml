@@ -47,7 +47,21 @@
         left join pp_account_role ar on ar.role_id = a.id
         <where>
             <if test="accountId != null and accountId != ''">
-                and ar.account_id =#{accountId}
+                and ar.account_id = #{accountId}
+            </if>
+        </where>
+    </select>
+
+    <select id="getRolesByParams" parameterType="string" resultMap="BaseResultMap">
+        select <include refid="basic_list"/>
+        from pp_roles as a
+        left join pp_account_role ar on ar.role_id = a.id
+        <where>
+            <if test="accountId != null and accountId != ''">
+                and ar.account_id = #{accountId}
+            </if>
+            <if test="roleId != null and roleId != ''">
+                and ar.role_id = #{roleId}
             </if>
         </where>
     </select>

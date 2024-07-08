@@ -37,7 +37,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             Asserts.fail("用户已被禁用");
         }
         //查询对应权限信息
-        List<String> userAuthority = rolesService.getUserAuthority(account.getId());
+        List<String> userAuthority = rolesService.getUserAuthority(account.getId(),null);
 
         return new AccountUser(account,userAuthority);
     }
