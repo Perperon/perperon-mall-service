@@ -19,4 +19,6 @@ public interface MenuMapper extends Mapper<Menu> {
     List<MenuDto> getPermsByRoleId(String roleId);
 
     List<MenuDto> getMenuCodeByRoleId(String roleId);
+
+    List<MenuDto> getMenuByRoleId(String roleId);
 }

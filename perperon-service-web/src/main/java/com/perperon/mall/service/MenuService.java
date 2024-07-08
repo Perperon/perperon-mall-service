@@ -2,6 +2,7 @@ package com.perperon.mall.service;
 
 import com.perperon.mall.common.response.CommonResult;
 import com.perperon.mall.dto.MenuDto;
+import com.perperon.mall.dto.RolesDto;
 import com.perperon.mall.pojo.Menu;
 
 import java.util.List;
@@ -24,6 +25,8 @@ public interface MenuService extends BaseService<Menu> {
     List<MenuDto> treeMenuList(Map<String,Object> params);
 
     CommonResult<List<String>> menuRoleList(String roleId);
+
+    CommonResult<RolesDto> roleMenuList(String roleId);
 
     CommonResult<List<String>> grantMenu(String roleId, List<String> menuIds);
 }

@@ -42,9 +42,15 @@ public class MenuController extends BaseController<Menu>{
     }
 
     @GetMapping(value = "/menuRoleList/{roleId}")
-    @ApiOperation("查询角色所拥有的菜单权限")
+    @ApiOperation("查询角色所拥有的菜单权限id")
     public Object menuRoleList(@PathVariable("roleId") String roleId) {
         return menuService.menuRoleList(roleId);
+    }
+
+    @GetMapping(value = "/roleMenuList/{roleId}")
+    @ApiOperation("查询角色所拥有的菜单权限列表")
+    public Object roleMenuList(@PathVariable("roleId") String roleId) {
+        return menuService.roleMenuList(roleId);
     }
 
     @PostMapping("/grantMenu")

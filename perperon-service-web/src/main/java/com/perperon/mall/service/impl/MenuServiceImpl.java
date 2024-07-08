@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageInfo;
 import com.perperon.mall.common.response.CommonResult;
 import com.perperon.mall.dto.MenuDto;
+import com.perperon.mall.dto.RolesDto;
 import com.perperon.mall.entity.AccountUser;
 import com.perperon.mall.mapper.MenuMapper;
 import com.perperon.mall.mapper.RoleMenuMapper;
@@ -65,7 +66,6 @@ public class MenuServiceImpl implements MenuService {
             List<MenuDto> menuList = menuMapper.getMenuCodeByRoleId(role.getId());
             for(MenuDto menu : menuList) {
                 menuSet.add(menu);
-
             }
         }
         List<MenuDto> menuList = new ArrayList<>(menuSet);
@@ -103,6 +103,23 @@ public class MenuServiceImpl implements MenuService {
                 .map(subMenu -> covertMenuNode(subMenu, menuList)).collect(Collectors.toList());
         node.setChildren(children);
         return node;
+    }
+
+    @Override
+    public CommonResult<RolesDto> roleMenuList(String roleId) {
+        RolesDto roles = new RolesDto();
+        Set<MenuDto> menuSet  = new HashSet<>();
+        List<MenuDto> menuList = menuMapper.getMenuByRoleId(roleId);
+        for(MenuDto menu : menuList) {
+            menuSet.add(menu);
+        }
+        List<MenuDto> menus = new ArrayList<>(menuSet);
+        List<MenuDto> result = menus.stream()
+                .filter(menu -> StrUtil.isBlank(menu.getParentId()))
+                .map(menu -> covertMenuNode(menu, menus))
+                .collect(Collectors.toList());
+        roles.setChildren(result);
+        return CommonResult.success(roles);
     }
 
     @Override

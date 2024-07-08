@@ -44,13 +44,25 @@
             </if>
         </where>
     </select>
-    <!--查询角色的菜单-->
+    <!--查询角色的菜单与列表-->
     <select id="getMenuCodeByRoleId" resultMap="BaseResultMapDto" parameterType="string">
         select <include refid="basic_list"/>
         from pp_menu as a
         left join pp_role_menu rm on rm.menu_id = a.id
         <where>
             a.menu_type in ('N','C') and a.status = 1
+            <if test="roleId != null and roleId != ''">
+                and rm.role_id =#{roleId}
+            </if>
+        </where>
+    </select>
+    <!--查询角色的全部菜单-->
+    <select id="getMenuByRoleId" resultMap="BaseResultMapDto" parameterType="string">
+        select <include refid="basic_list"/>
+        from pp_menu as a
+        left join pp_role_menu rm on rm.menu_id = a.id
+        <where>
+            a.status = 1
             <if test="roleId != null and roleId != ''">
                 and rm.role_id =#{roleId}
             </if>
