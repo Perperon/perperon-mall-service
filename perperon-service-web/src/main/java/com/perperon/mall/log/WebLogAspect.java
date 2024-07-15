@@ -110,7 +110,8 @@ public class WebLogAspect {
         logs.setType(webLog.getDescription());
         String data = jsonMapper.writeValueAsString( result ).trim();
         logs.setContent(data);
-        if (!"登录".equals(webLog.getDescription())){
+        String logStr = "登录,退出登录";
+        if (!logStr.contains(webLog.getDescription())){
             logs.setUserId(CurrentAccountUtil.getCurrentAdmin().getId());
         }
         logsService.create(logs);

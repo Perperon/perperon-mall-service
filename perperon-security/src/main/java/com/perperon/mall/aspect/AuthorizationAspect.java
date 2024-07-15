@@ -36,7 +36,7 @@ public class AuthorizationAspect {
     }
 
     @Around("pt()")
-    public CommonResult checkAuthority(ProceedingJoinPoint joinPoint) {
+    public Object checkAuthority(ProceedingJoinPoint joinPoint) {
         //拿到方法的签名，也可以理解为是方法的元数据
         try {
             // 获取方法签名
@@ -54,7 +54,7 @@ public class AuthorizationAspect {
             // 获取 Spring 容器中的 AuthorityPerms Bean，并执行权限验证条件
             if (expression) {
                 // 权限验证通过，继续执行连接点方法
-                return (CommonResult) joinPoint.proceed();
+                return joinPoint.proceed();
             } else {
                 // 权限验证失败，返回错误结果
                 return CommonResult.failed("越权操作！！！");
