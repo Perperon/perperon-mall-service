@@ -1,9 +1,14 @@
-package com.perperon.mall.common.log;
+package com.perperon.mall.log;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.json.JSONUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.perperon.mall.common.domain.WebLog;
+import com.perperon.mall.pojo.Logs;
+import com.perperon.mall.service.LogsService;
+import com.perperon.mall.utils.CurrentAccountUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.logstash.logback.marker.Markers;
 import org.aspectj.lang.JoinPoint;
@@ -13,6 +18,7 @@ import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -40,6 +46,11 @@ import java.util.Map;
 @Order(1)
 public class WebLogAspect {
     private static final Logger LOGGER = LoggerFactory.getLogger(WebLogAspect.class);
+
+    @Autowired
+    private LogsService logsService;
+
+    private ObjectMapper jsonMapper = new ObjectMapper();
 
     @Pointcut("execution(public * com.perperon.mall.controller.*.*(..))||execution(public * com.perperon.mall.*.controller.*.*(..))")
     public void webLog() {
@@ -86,8 +97,23 @@ public class WebLogAspect {
         logMap.put("parameter",webLog.getParameter());
         logMap.put("spendTime",webLog.getSpendTime());
         logMap.put("description",webLog.getDescription());
-//        LOGGER.info("{}", JSONUtil.parse(webLog));
         LOGGER.info(Markers.appendEntries(logMap), JSONUtil.parse(webLog).toString());
+        //操作日志记录存入数据库
+        Logs logs = new Logs();
+        Class clz = joinPoint.getTarget().getClass();
+        String optname = "";
+        if (clz.isAnnotationPresent( Api.class )) {
+            Api opera = (Api) clz.getAnnotation( Api.class );
+            optname = (opera.tags())[0];
+        }
+        logs.setName(optname);
+        logs.setType(webLog.getDescription());
+        String data = jsonMapper.writeValueAsString( result ).trim();
+        logs.setContent(data);
+        if (!"登录".equals(webLog.getDescription())){
+            logs.setUserId(CurrentAccountUtil.getCurrentAdmin().getId());
+        }
+        logsService.create(logs);
         return result;
     }
 

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author perperon
  * @date 2024-04-09
- * @apiNote 菜单管理模块
+ * @apiNote 商品分类模块
  */
 @RestController
 @RequestMapping("/productcategory")

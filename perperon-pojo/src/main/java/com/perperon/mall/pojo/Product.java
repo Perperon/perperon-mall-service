@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -26,7 +27,7 @@ import java.util.Date;
 public class Product implements Serializable,Cloneable{
     /** 主键标识 */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")
     @ApiModelProperty(name = "主键标识",notes = "")
     private String id ;
     /** 名称 */
