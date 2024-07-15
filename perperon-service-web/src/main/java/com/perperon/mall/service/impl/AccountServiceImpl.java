@@ -10,6 +10,7 @@ import com.perperon.mall.entity.AccountUser;
 import com.perperon.mall.mapper.AccountMapper;
 import com.perperon.mall.pojo.Account;
 import com.perperon.mall.service.AccountService;
+import com.perperon.mall.utils.CurrentAccountUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -108,6 +109,8 @@ public class AccountServiceImpl  implements AccountService {
     public CommonResult<Account> create(Account obj){
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         obj.setPassword(encoder.encode("123456"));
+        Account currentAdmin = CurrentAccountUtil.getCurrentAdmin();
+        obj.setUserId(currentAdmin.getId());
         int insertCount = getMapper().insert(obj);
         return CommonResult.success(obj);
     }

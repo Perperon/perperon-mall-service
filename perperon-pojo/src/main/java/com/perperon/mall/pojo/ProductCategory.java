@@ -32,6 +32,9 @@ public class ProductCategory implements Serializable,Cloneable{
     /** 商品分类名称 */
     @ApiModelProperty(name = "商品分类名称",notes = "")
     private String name ;
+    /** 分类标识 */
+    @ApiModelProperty(name = "分类标识",notes = "")
+    private String icon ;
     /** 状态 */
     @ApiModelProperty(name = "状态",notes = "")
     private Boolean status ;
@@ -51,4 +54,9 @@ public class ProductCategory implements Serializable,Cloneable{
     @ApiModelProperty(name = "更新时间",notes = "")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updated ;
+
+    @Transient
+    private String userName;
+    @Transient
+    private String updateName;
 }

@@ -20,9 +20,10 @@
 <resultMap id="BaseResultMapDto" type="com.perperon.mall.dto.MenuDto" extends="BaseResultMap">
     <collection property="children" ofType="com.perperon.mall.dto.MenuDto" column="children"></collection>
 </resultMap>
-    <sql id="basic_list">
-        a.id,a.menu_name, a.perms, a.component, a.path, a.menu_type, a.icon, a.parent_id, a.user_id, a.created, a.status, a.level, a.sort
-    </sql>
+
+<sql id="basic_list">
+    a.id,a.menu_name, a.perms, a.component, a.path, a.menu_type, a.icon, a.parent_id, a.user_id, a.created, a.status, a.level, a.sort
+</sql>
     <select id="listByPage" parameterType="map" resultMap="BaseResultMapDto">
         select <include refid="basic_list"/>
         from pp_menu as a

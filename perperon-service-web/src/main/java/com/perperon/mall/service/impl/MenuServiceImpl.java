@@ -8,9 +8,11 @@ import com.perperon.mall.dto.RolesDto;
 import com.perperon.mall.mapper.MenuMapper;
 import com.perperon.mall.mapper.RoleMenuMapper;
 import com.perperon.mall.mapper.RolesMapper;
+import com.perperon.mall.pojo.Account;
 import com.perperon.mall.pojo.Menu;
 import com.perperon.mall.pojo.RoleMenu;
 import com.perperon.mall.service.MenuService;
+import com.perperon.mall.utils.CurrentAccountUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -128,10 +130,13 @@ public class MenuServiceImpl implements MenuService {
     @Transactional(isolation = Isolation.REPEATABLE_READ,propagation = Propagation.REQUIRED)
     public CommonResult<List<String>> grantMenu(String roleId, List<String> menuIds) {
         List<RoleMenu> roleMenus = new ArrayList<>();
+        Account currentAdmin = CurrentAccountUtil.getCurrentAdmin();
+
         menuIds.forEach(id -> {
             RoleMenu roleMenu = new RoleMenu();
             roleMenu.setRoleId(roleId);
             roleMenu.setMenuId(id);
+            roleMenu.setUserId(currentAdmin.getId());
             roleMenus.add(roleMenu);
         });
         //删除已有角色菜单关系 重新分配

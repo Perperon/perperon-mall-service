@@ -9,10 +9,12 @@ import com.perperon.mall.mapper.AccountRoleMapper;
 import com.perperon.mall.mapper.MenuMapper;
 import com.perperon.mall.mapper.RoleMenuMapper;
 import com.perperon.mall.mapper.RolesMapper;
+import com.perperon.mall.pojo.Account;
 import com.perperon.mall.pojo.AccountRole;
 import com.perperon.mall.pojo.RoleMenu;
 import com.perperon.mall.pojo.Roles;
 import com.perperon.mall.service.RolesService;
+import com.perperon.mall.utils.CurrentAccountUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -117,10 +119,12 @@ public class RolesServiceImpl implements RolesService {
     @Transactional(isolation = Isolation.REPEATABLE_READ,propagation = Propagation.REQUIRED)
     public CommonResult<Roles> grantRole(String accountId, List<String> roleIds) {
         List<AccountRole> accountRoles = new ArrayList<>();
+        Account currentAdmin = CurrentAccountUtil.getCurrentAdmin();
         roleIds.forEach(id -> {
             AccountRole accountRole = new AccountRole();
             accountRole.setAccountId(accountId);
             accountRole.setRoleId(id);
+            accountRole.setUserId(currentAdmin.getId());
             accountRoles.add(accountRole);
         });
         //删除已有用户角色关系重新分配

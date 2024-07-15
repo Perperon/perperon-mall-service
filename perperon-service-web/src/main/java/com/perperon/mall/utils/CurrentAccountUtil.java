@@ -43,8 +43,6 @@ public class CurrentAccountUtil {
         RedisCache redisCache = SpringUtil.getBean(RedisCache.class);
         AccountUser accountUser = redisCache.getAdmin(username);
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
         if(Objects.nonNull(accountUser)){
             return accountUser.getAccount();
         }else{
