@@ -5,21 +5,25 @@
         <id column="id" jdbcType="VARCHAR" property="id" />
         <result column="name" jdbcType="VARCHAR" property="name" />
         <result column="icon" jdbcType="VARCHAR" property="icon" />
+        <result column="p_id" jdbcType="VARCHAR" property="pId" />
+        <result column="level" jdbcType="VARCHAR" property="level" />
         <result column="user_id" jdbcType="VARCHAR" property="userId" />
         <result column="created" jdbcType="TIMESTAMP" property="created" />
         <result column="status" jdbcType="BIT" property="status" />
         <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
         <result column="updated" jdbcType="TIMESTAMP" property="updated" />
         <result column="updated" jdbcType="TIMESTAMP" property="updated" />
+    </resultMap>
+    <resultMap id="BaseResultMapDto" type="com.perperon.mall.dto.ProductCategoryDto" extends="BaseResultMap">
         <result column="user_name" jdbcType="VARCHAR" property="userName" />
         <result column="update_name" jdbcType="VARCHAR" property="updateName" />
     </resultMap>
 
     <sql id="basic_list">
-        a.id,a.name, a.icon, a.user_id, a.created, a.status, a.updated_by, a.updated
+        a.id,a.name, a.icon,a.p_id,a.level, a.user_id, a.created, a.status, a.updated_by, a.updated
     </sql>
 
-    <select id="listByPage" parameterType="map" resultMap="BaseResultMap">
+    <select id="listByPage" parameterType="map" resultMap="BaseResultMapDto">
         SELECT
             <include refid="basic_list"/>,ac.nick_name as user_name,acc.nick_name as update_name
         FROM
@@ -34,5 +38,23 @@
                     and a.id like concat('%',#{name},'%')
                 </if>
             </where>
+    </select>
+
+    <select id="listByParentPage" parameterType="map" resultMap="BaseResultMapDto">
+        SELECT
+        <include refid="basic_list"/>
+        FROM
+        pp_product_category a
+        LEFT JOIN pp_account ac ON a.user_id = ac.id
+        left join pp_account acc on acc.id = a.updated_by
+        <where>
+            a.level in( 1 , 2 )
+            <if test="id != null and id != ''">
+                and a.id =#{id}
+            </if>
+            <if test="name != null and name != ''">
+                and a.id like concat('%',#{name},'%')
+            </if>
+        </where>
     </select>
 </mapper>

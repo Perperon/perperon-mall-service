@@ -1,6 +1,6 @@
 package com.perperon.mall.mapper;
 
-import com.perperon.mall.dto.MenuDto;
+import com.perperon.mall.dto.ProductCategoryDto;
 import com.perperon.mall.pojo.ProductCategory;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -14,5 +14,7 @@ import java.util.Map;
  */
 public interface ProductCategoryMapper extends Mapper<ProductCategory> {
 
-    List<MenuDto> listByPage(Map<String, Object> map);
+    List<ProductCategoryDto> listByPage(Map<String, Object> map);
+
+    List<ProductCategoryDto> listByParentPage(Map<String, Object> map);
 }

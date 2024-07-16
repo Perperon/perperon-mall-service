@@ -1,12 +1,17 @@
 package com.perperon.mall.controller;
 
+import com.perperon.mall.common.response.CommonPage;
+import com.perperon.mall.common.response.CommonResult;
+import com.perperon.mall.dto.ProductCategoryDto;
 import com.perperon.mall.pojo.ProductCategory;
 import com.perperon.mall.service.BaseService;
 import com.perperon.mall.service.ProductCategoryService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * @author perperon
@@ -27,4 +32,10 @@ public class ProductCategoryController extends BaseController<ProductCategory>{
         return productCategoryService;
     }
 
+    @GetMapping(value = "/listByParentPage")
+    @ApiOperation("查询父级列表")
+    @ResponseBody
+    public CommonResult<CommonPage<ProductCategoryDto>> listByParentPage(@RequestParam Map<String,Object> params){
+        return CommonResult.success(CommonPage.restPage(productCategoryService.listByParentPage(params)));
+    }
 }
