@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.perperon.mall.mapper.DictionaryTypeMapper">
+    <resultMap id="BaseResultMap" type="com.perperon.mall.pojo.DictionaryType">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="code" jdbcType="VARCHAR" property="code" />
+        <result column="status" jdbcType="BIT" property="status" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="created" jdbcType="TIMESTAMP" property="created" />
+        <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+        <result column="updated" jdbcType="TIMESTAMP" property="updated" />
+    </resultMap>
+
+    <sql id="basic_list">
+        a.id, a.name, a.code, a.status, a.remark,a.user_id,a.created, a.updated_by, a.updated
+    </sql>
+
+    <select id="listByPage" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="basic_list"/>
+        FROM
+        pp_dictionary_type a
+        <where>
+            <if test="id != null and id != ''">
+                and a.id =#{id}
+            </if>
+            <if test="name != null and name != ''">
+                and a.name like concat('%',#{name},'%')
+            </if>
+            <if test="code != null and code != ''">
+                and a.code = #{code}
+            </if>
+        </where>
+    </select>
+</mapper>
