@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.perperon.mall.mapper.ProductCategoryParamMapper">
+    <resultMap id="BaseResultMap" type="com.perperon.mall.pojo.ProductCategoryParam">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="type_id" jdbcType="VARCHAR" property="typeId" />
+        <result column="category_id" jdbcType="VARCHAR" property="categoryId" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="created" jdbcType="TIMESTAMP" property="created" />
+        <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+        <result column="updated" jdbcType="TIMESTAMP" property="updated" />
+
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="update_name" jdbcType="VARCHAR" property="updateName" />
+    </resultMap>
+
+    <sql id="basic_list">
+        a.id,a.name, a.type_id,a.user_id,a.created, a.updated_by, a.updated
+    </sql>
+
+    <select id="listByPage" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+            <include refid="basic_list"/>,ac.nick_name as user_name,acc.nick_name as update_name
+        FROM
+            pp_product_category_param a
+            left join pp_dictionary_data dd on dd.id = a.type_id
+            LEFT JOIN pp_account ac ON a.user_id = ac.id
+            left join pp_account acc on acc.id = a.updated_by
+            <where>
+                <if test="id != null and id != ''">
+                    and a.id =#{id}
+                </if>
+                <if test="name != null and name != ''">
+                    and a.name like concat('%',#{name},'%')
+                </if>
+                <if test="typeCode != null and typeCode != ''">
+                    and dd.code = #{typeCode}
+                </if>
+            </where>
+    </select>
+</mapper>
