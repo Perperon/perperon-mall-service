@@ -30,6 +30,10 @@ public class ProductCategoryParam implements Serializable {
     /** 参数名称 */
     @ApiModelProperty(name = "参数名称",notes = "")
     private String name ;
+    /** 参数值 */
+    @ApiModelProperty(name = "参数值",notes = "")
+    @Column(name="attr_value")
+    private String attrValue ;
     /** 分类标识 */
     @Column(name="category_id")
     @ApiModelProperty(name = "分类标识",notes = "")

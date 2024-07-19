@@ -4,6 +4,7 @@
     <resultMap id="BaseResultMap" type="com.perperon.mall.pojo.ProductCategoryParam">
         <id column="id" jdbcType="VARCHAR" property="id" />
         <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="attr_value" jdbcType="VARCHAR" property="attrValue" />
         <result column="type_id" jdbcType="VARCHAR" property="typeId" />
         <result column="category_id" jdbcType="VARCHAR" property="categoryId" />
         <result column="user_id" jdbcType="VARCHAR" property="userId" />
@@ -16,7 +17,7 @@
     </resultMap>
 
     <sql id="basic_list">
-        a.id,a.name, a.type_id,a.user_id,a.created, a.updated_by, a.updated
+        a.id,a.name, a.attr_value, a.type_id,a.user_id,a.created, a.updated_by, a.updated
     </sql>
 
     <select id="listByPage" parameterType="map" resultMap="BaseResultMap">
