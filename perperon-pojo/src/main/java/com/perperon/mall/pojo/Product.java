@@ -7,11 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -36,7 +34,14 @@ public class Product implements Serializable,Cloneable{
     private String name ;
     /** 商品类型 */
     @ApiModelProperty(name = "商品类型",notes = "")
+    @Column(name = "category_id")
     private String categoryId ;
+    /** 商品价格 */
+    @ApiModelProperty(name = "商品价格",notes = "")
+    private BigDecimal price ;
+    /** 商品重量 */
+    @ApiModelProperty(name = "商品重量",notes = "")
+    private BigDecimal weight ;
     /** 状态 */
     @ApiModelProperty(name = "状态",notes = "")
     private Boolean  status ;
@@ -49,9 +54,18 @@ public class Product implements Serializable,Cloneable{
     private Date created ;
     /** 更新人 */
     @ApiModelProperty(name = "更新人",notes = "")
-    private String updateBy ;
+    @Column(name = "updated_by")
+    private String updatedBy ;
     /** 更新时间 */
     @ApiModelProperty(name = "更新时间",notes = "")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date update ;
+    private Date updated ;
+
+    @Transient
+    private String userName;
+    @Transient
+    private String updatedName;
+    @Transient
+    private String categoryName;
+
 }
