@@ -42,6 +42,13 @@ public class Product implements Serializable,Cloneable{
     /** 商品重量 */
     @ApiModelProperty(name = "商品重量",notes = "")
     private BigDecimal weight ;
+    /** 商品数量 */
+    @ApiModelProperty(name = "商品数量",notes = "")
+    private Integer number ;
+    /** 商品图片路径 */
+    @ApiModelProperty(name = "商品图片路径",notes = "")
+    @Column(name = "attach_path")
+    private String attachPath ;
     /** 状态 */
     @ApiModelProperty(name = "状态",notes = "")
     private Boolean  status ;

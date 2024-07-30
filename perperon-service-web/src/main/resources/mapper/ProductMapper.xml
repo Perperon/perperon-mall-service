@@ -7,7 +7,9 @@
         <result column="category_id" jdbcType="VARCHAR" property="categoryId" />
         <result column="price" jdbcType="DECIMAL" property="price" />
         <result column="weight" jdbcType="DECIMAL" property="weight" />
+        <result column="number" jdbcType="INTEGER" property="number" />
         <result column="category_id" jdbcType="VARCHAR" property="categoryId" />
+        <result column="attach_path" jdbcType="VARCHAR" property="attachPath" />
         <result column="user_id" jdbcType="VARCHAR" property="userId" />
         <result column="created" jdbcType="TIMESTAMP" property="created" />
         <result column="status" jdbcType="BIT" property="status" />
@@ -20,7 +22,7 @@
     </resultMap>
 
     <sql id="basic_list">
-        a.id,a.name, a.category_id,a.price,a.weight, a.user_id, a.created, a.status, a.updated_by, a.updated
+        a.id,a.name, a.category_id, a.price, a.weight, a.number, a.attach_path, a.user_id, a.created, a.status, a.updated_by, a.updated
     </sql>
 
     <select id="listByPage" parameterType="map" resultMap="BaseResultMap">
