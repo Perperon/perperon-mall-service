@@ -24,6 +24,8 @@ import java.util.Date;
 @ApiModel(value = "日志表",description = "")
 @Table(name="pp_logs")
 public class Logs {
+
+        private static final long serialVersionUID = 1L;
         /** 主键标识 */
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")

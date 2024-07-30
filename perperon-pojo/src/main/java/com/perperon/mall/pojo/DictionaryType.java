@@ -22,6 +22,8 @@ import java.util.Date;
 @ApiModel(value = "字典类型表",description = "")
 @Table(name="pp_dictionary_type")
 public class DictionaryType implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     /** 主键标识 */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")

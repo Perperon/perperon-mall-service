@@ -22,6 +22,8 @@ import java.util.Date;
 @ApiModel(value = "商品分类参数表",description = "")
 @Table(name="pp_product_category_param")
 public class ProductCategoryParam implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     /** 主键标识 */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")

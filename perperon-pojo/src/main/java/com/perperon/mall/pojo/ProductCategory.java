@@ -24,6 +24,7 @@ import java.util.Date;
 @Table(name="pp_product_category")
 public class ProductCategory implements Serializable,Cloneable{
 
+    private static final long serialVersionUID = 1L;
     /** 主键标识 */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")

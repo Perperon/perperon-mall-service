@@ -24,6 +24,8 @@ import java.util.Date;
 @ApiModel(value = "商品表",description = "")
 @Table(name="pp_product")
 public class Product implements Serializable,Cloneable{
+
+    private static final long serialVersionUID = 1L;
     /** 主键标识 */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")
@@ -45,10 +47,6 @@ public class Product implements Serializable,Cloneable{
     /** 商品数量 */
     @ApiModelProperty(name = "商品数量",notes = "")
     private Integer number ;
-    /** 商品图片路径 */
-    @ApiModelProperty(name = "商品图片路径",notes = "")
-    @Column(name = "attach_path")
-    private String attachPath ;
     /** 状态 */
     @ApiModelProperty(name = "状态",notes = "")
     private Boolean  status ;
