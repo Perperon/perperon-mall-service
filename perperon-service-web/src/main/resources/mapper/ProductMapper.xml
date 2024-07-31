@@ -9,6 +9,7 @@
         <result column="weight" jdbcType="DECIMAL" property="weight" />
         <result column="number" jdbcType="INTEGER" property="number" />
         <result column="category_id" jdbcType="VARCHAR" property="categoryId" />
+        <result column="content" jdbcType="VARCHAR" property="content" />
         <result column="user_id" jdbcType="VARCHAR" property="userId" />
         <result column="created" jdbcType="TIMESTAMP" property="created" />
         <result column="status" jdbcType="BIT" property="status" />
@@ -18,10 +19,14 @@
         <result column="user_name" jdbcType="VARCHAR" property="userName" />
         <result column="updated_name" jdbcType="VARCHAR" property="updatedName" />
         <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+
+        <collection property="attachList" column="id" ofType="com.perperon.mall.pojo.ProductAttach" javaType="java.util.ArrayList" select="com.perperon.mall.mapper.ProductAttachMapper.getListByProductId"></collection>
+        <collection property="publicParamList" column="id" ofType="com.perperon.mall.pojo.ProductParam" javaType="java.util.ArrayList" select="com.perperon.mall.mapper.ProductParamMapper.getListByProductId"></collection>
+
     </resultMap>
 
     <sql id="basic_list">
-        a.id,a.name, a.category_id, a.price, a.weight, a.number, a.user_id, a.created, a.status, a.updated_by, a.updated
+        a.id,a.name, a.category_id, a.price, a.weight, a.number, a.content, a.user_id, a.created, a.status, a.updated_by, a.updated
     </sql>
 
     <select id="listByPage" parameterType="map" resultMap="BaseResultMap">

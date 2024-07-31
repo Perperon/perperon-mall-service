@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 商品表;
@@ -47,6 +48,9 @@ public class Product implements Serializable,Cloneable{
     /** 商品数量 */
     @ApiModelProperty(name = "商品数量",notes = "")
     private Integer number ;
+    /** 商品内容 */
+    @ApiModelProperty(name = "商品内容",notes = "")
+    private String content ;
     /** 状态 */
     @ApiModelProperty(name = "状态",notes = "")
     private Boolean  status ;
@@ -72,5 +76,10 @@ public class Product implements Serializable,Cloneable{
     private String updatedName;
     @Transient
     private String categoryName;
+    @Transient
+    private List<ProductAttach> attachList;
+    @Transient
+    private List<ProductParam> publicParamList;
+
 
 }
