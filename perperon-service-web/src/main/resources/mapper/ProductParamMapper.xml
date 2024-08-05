@@ -13,11 +13,29 @@
         <result column="updated" jdbcType="TIMESTAMP" property="updated" />
 
         <result column="typeCode" jdbcType="VARCHAR" property="typeCode" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
     </resultMap>
 
     <sql id="basic_list">
         a.id, a.category_param_id, a.product_id, a.attr_value, a.user_id, a.created, a.updated_by, a.updated
     </sql>
+
+    <select id="listProductParamByPage" resultMap="BaseResultMap" parameterType="string">
+        select
+        <include refid="basic_list"/>,dd.code as typeCode,cp.name
+        from
+        pp_product_param as a
+        left join pp_product_category_param cp on cp.id = a.category_param_id
+        left join pp_dictionary_data dd on dd.id = cp.type_id
+        <where>
+            <if test="typeCode != null and typeCode != ''">
+                and dd.code = #{typeCode}
+            </if>
+            <if test="categoryId != null and categoryId != ''">
+                and cp.category_id = #{categoryId}
+            </if>
+        </where>
+    </select>
 
     <select id="getListByProductId" resultMap="BaseResultMap" parameterType="string">
         select

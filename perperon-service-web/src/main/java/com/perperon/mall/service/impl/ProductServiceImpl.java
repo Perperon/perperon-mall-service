@@ -1,4 +1,4 @@
-package com.perperon.mall.service;
+package com.perperon.mall.service.impl;
 
 import com.github.pagehelper.PageInfo;
 import com.perperon.mall.common.response.CommonResult;
@@ -8,12 +8,14 @@ import com.perperon.mall.mapper.ProductParamMapper;
 import com.perperon.mall.pojo.Product;
 import com.perperon.mall.pojo.ProductAttach;
 import com.perperon.mall.pojo.ProductParam;
+import com.perperon.mall.service.ProductService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.common.Mapper;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -69,6 +71,13 @@ public class ProductServiceImpl implements ProductService {
         }
         }
         return CommonResult.success(obj);
+    }
+
+    public CommonResult<Product> getById(String id){
+        Map<String,Object> params = new HashMap<>();
+        params.put("id",id);
+        List<Product> products = productMapper.listByPage(params);
+        return CommonResult.success(products.get(0),"查询成功");
     }
 
     @Transactional(propagation = Propagation.REQUIRED)

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author dupengcheng
@@ -20,4 +21,6 @@ public interface ProductParamMapper extends Mapper<ProductParam> {
     int  deleteByProductId(@Param("productId") String productId);
 
     List<ProductParam> getListByProductId(String productId);
+
+    List<ProductParam> listProductParamByPage(Map<String,Object> params);
 }

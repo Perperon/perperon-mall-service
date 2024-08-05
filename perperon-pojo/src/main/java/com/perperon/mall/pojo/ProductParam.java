@@ -60,4 +60,6 @@ public class ProductParam implements Serializable {
 
     @Transient
     private String typeCode;
+    @Transient
+    private String name;
 }
