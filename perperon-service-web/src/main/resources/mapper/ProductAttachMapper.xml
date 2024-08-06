@@ -24,6 +24,7 @@
         (
         id,
         product_id,
+        name,
         path,
         user_id
         )
@@ -32,6 +33,7 @@
             (
             (SELECT UUID() AS id),
             #{item.productId},
+            #{item.name},
             #{item.path},
             #{item.userId}
             )
