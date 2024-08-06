@@ -28,6 +28,9 @@
         left join pp_product_category_param cp on cp.id = a.category_param_id
         left join pp_dictionary_data dd on dd.id = cp.type_id
         <where>
+            <if test="productId != null and productId != ''">
+                and a.product_id = #{productId}
+            </if>
             <if test="typeCode != null and typeCode != ''">
                 and dd.code = #{typeCode}
             </if>

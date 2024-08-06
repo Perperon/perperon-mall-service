@@ -1,5 +1,6 @@
 package com.perperon.mall.service;
 
+import com.perperon.mall.common.response.CommonResult;
 import com.perperon.mall.pojo.Product;
 
 /**
@@ -9,5 +10,5 @@ import com.perperon.mall.pojo.Product;
  */
 public interface ProductService extends BaseService<Product>{
 
-
+    CommonResult<Product> updateStatus(Product product);
 }

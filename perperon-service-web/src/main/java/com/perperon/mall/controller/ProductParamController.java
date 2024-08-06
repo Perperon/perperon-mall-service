@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/productparam")
-@Api(tags = "商品列表模块")
+@Api(tags = "商品参数模块")
 public class ProductParamController extends BaseController<ProductParam>{
     @Autowired
     private ProductParamService productParamService;

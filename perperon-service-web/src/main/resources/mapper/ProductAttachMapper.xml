@@ -4,6 +4,7 @@
     <resultMap id="BaseResultMap" type="com.perperon.mall.pojo.ProductAttach">
         <id column="id" jdbcType="VARCHAR" property="id" />
         <result column="product_id" jdbcType="VARCHAR" property="productId" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
         <result column="path" jdbcType="VARCHAR" property="path" />
         <result column="user_id" jdbcType="VARCHAR" property="userId" />
         <result column="created" jdbcType="TIMESTAMP" property="created" />
@@ -11,7 +12,7 @@
         <result column="updated" jdbcType="TIMESTAMP" property="updated" />
     </resultMap>
     <sql id="basic_list">
-        a.id, a.product_id,a.path, a.user_id, a.created, a.updated_by, a.updated
+        a.id, a.product_id,a.name,a.path, a.user_id, a.created, a.updated_by, a.updated
     </sql>
     <select id="getListByProductId" resultMap="BaseResultMap" parameterType="string">
         select <include refid="basic_list"/> from pp_product_attach as a where a.product_id = #{productId}

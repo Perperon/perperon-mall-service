@@ -31,6 +31,9 @@ public class ProductAttach implements Serializable {
     @ApiModelProperty(name = "商品id标识",notes = "")
     @Column(name = "product_id")
     private String productId ;
+    /** 附件名称 */
+    @ApiModelProperty(name = "附件名称",notes = "")
+    private String name ;
     /** 附件路径 */
     @ApiModelProperty(name = "附件路径",notes = "")
     private String path ;
