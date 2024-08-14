@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.perperon.mall.mapper.LogisticsMapper">
+    <resultMap id="BaseResultMap" type="com.perperon.mall.pojo.Logistics">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+        <result column="logistics_no" jdbcType="VARCHAR" property="logisticsNo" />
+        <result column="time" jdbcType="TIMESTAMP" property="time" />
+        <result column="f_time" jdbcType="TIMESTAMP" property="fTime" />
+        <result column="context" jdbcType="VARCHAR" property="context" />
+        <result column="status" jdbcType="BIT" property="status" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="created" jdbcType="TIMESTAMP" property="created" />
+    </resultMap>
+
+    <sql id="basic_list">
+        a.id,a.order_id,a.logistics_no, a.time,a.f_time, a.context, a.status, a.user_id, a.created
+    </sql>
+
+    <select id="listLogisticsByPage" resultMap="BaseResultMap" parameterType="map">
+
+    </select>
+
+    <select id="getByLogisticsNo" resultMap="BaseResultMap" parameterType="string">
+        select
+        <include refid="basic_list" />
+        from
+             pp_logistics a
+        where a.logistics_no = #{logisticsNo}
+    </select>
+</mapper>
