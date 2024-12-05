@@ -98,7 +98,7 @@ public abstract class BaseController<T> {
         return obj;
     }
 
-    @RequestMapping("/upload")
+    @PostMapping("/upload")
     @ApiOperation(value = "上传文件", notes = "上传文件")
     @PreAuthorize("@ps.hasPerm('*:upload')")
     public Map<String, Object> upload(MultipartFile file) throws IOException {
