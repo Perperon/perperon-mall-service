@@ -1,5 +1,5 @@
 server:
-  port: 54001
+  port: 8088
 spring:
   mvc:
     pathmatch:

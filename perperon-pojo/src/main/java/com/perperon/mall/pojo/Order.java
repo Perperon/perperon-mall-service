@@ -121,8 +121,7 @@ public class Order implements Serializable {
     private Double coupon ;
     /** 积分抵扣 */
     @ApiModelProperty(name = "积分抵扣",notes = "")
-    @Column(name="points_deduction")
-    private Double pointsDeduction ;
+    private Double deductal ;
     /** 活动优惠 */
     @ApiModelProperty(name = "活动优惠",notes = "")
     @Column(name="event_discounts")

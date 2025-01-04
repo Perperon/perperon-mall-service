@@ -17,7 +17,34 @@
     </resultMap>
 
     <sql id="basic_list">
-        a.id,a.order_no, a.order_price, a.send_status, a.user_id, a.created, a.status, a.updated_by, a.updated
+      a.id,
+      a.order_no,
+      a.order_price,
+      a.STATUS,
+      a.send_status,
+      a.user_id,
+      a.created,
+      a.updated,
+      a.updated_by,
+      a.order_status,
+      a.order_from,
+      a.order_date,
+      a.order_type,
+      a.delivery_method,
+      a.tracking_number,
+      a.auto_confirm_time,
+      a.orders_receive_premium,
+      a.event_information,
+      a.order_generate_value,
+      a.consignee,
+      a.phone,
+      a.postal_code,
+      a.address,
+      a.freight,
+      a.coupon,
+      a.deductal,
+      a.event_discounts,
+      a.discount_amount
     </sql>
 
     <select id="listOrderByPage" parameterType="map" resultMap="BaseResultMap">
