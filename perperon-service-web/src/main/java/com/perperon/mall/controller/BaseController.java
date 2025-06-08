@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author perperon
@@ -116,5 +117,42 @@ public abstract class BaseController<T> {
             resultMap.put("data", data);
         }
         return resultMap;
+    }
+
+    @PostMapping("/uploadAvatar")
+    @ApiOperation(value = "上传头像文件", notes = "上传头像文件")
+    @PreAuthorize("@ps.hasPerm('*:upload')")
+    public Map<String, Object> uploadAvatar(@RequestParam("file") MultipartFile file) {
+        Map<String, Object> result = new HashMap<>();
+
+        if (file.isEmpty()) {
+            result.put("code", 400);
+            result.put("msg", "上传文件为空");
+            return result;
+        }
+
+        try {
+            // 文件名处理
+            String fileName = UUID.randomUUID().toString().replace("-", "") + ".jpg";
+            File dir = new File(uploadPath);
+            if (!dir.exists()) dir.mkdirs();
+
+            // 保存文件
+            File dest = new File(uploadPath + fileName);
+            file.transferTo(dest);
+
+            // 返回上传结果
+            result.put("code", 200);
+            Map<String,Object> data = new HashMap<>();
+            data.put("title", fileName);
+            data.put("src", attach+"/"+ fileName);
+            result.put("msg", "上传成功");
+            result.put("data", data);
+            return result;
+        } catch (IOException e) {
+            result.put("code", 500);
+            result.put("msg", "服务器错误: " + e.getMessage());
+            return result;
+        }
     }
 }
