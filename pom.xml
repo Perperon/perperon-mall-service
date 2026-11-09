@@ -48,6 +48,7 @@
         <fastjson.version>1.2.62</fastjson.version>
         <zxing.version>3.5.1</zxing.version>
         <commons.version>2.11.0</commons.version>
+        <!-- <minio.version>8.5.7</minio.version> -->
     </properties>
     <dependencies>
         <dependency>
@@ -219,6 +220,13 @@
                 <artifactId>commons-io</artifactId>
                 <version>${commons.version}</version> <!-- 使用最新版本 -->
             </dependency>
+            <!--MinIO对象存储（暂未启用）
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
+            </dependency>
+            -->
         </dependencies>
     </dependencyManagement>
 

@@ -4,7 +4,6 @@ import com.perperon.mall.annotation.PreAuthorize;
 import com.perperon.mall.common.response.CommonPage;
 import com.perperon.mall.common.response.CommonResult;
 import com.perperon.mall.service.BaseService;
-import com.perperon.mall.utils.DateUtils;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,8 +12,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -104,18 +106,36 @@ public abstract class BaseController<T> {
     @PreAuthorize("@ps.hasPerm('*:upload')")
     public Map<String, Object> upload(MultipartFile file) throws IOException {
         Map<String,Object> resultMap = new HashMap<>();
-        if (!file.isEmpty()){
-            String originalFilename = file.getOriginalFilename();
-            String suffixName = originalFilename.substring(originalFilename.lastIndexOf("."));
-            String fileName = DateUtils.getCurrenTime() + suffixName;
-            FileUtils.copyInputStreamToFile(file.getInputStream(),new File(uploadPath + fileName));
-            resultMap.put("code", 0);
-            resultMap.put("msg", "上传成功");
-            Map<String,Object> data = new HashMap<>();
-            data.put("title", fileName);
-            data.put("src", attach+"/"+ fileName);
-            resultMap.put("data", data);
+        if (file == null || file.isEmpty()){
+            resultMap.put("code", 400);
+            resultMap.put("msg", "上传文件不能为空");
+            return resultMap;
         }
+        String originalFilename = file.getOriginalFilename();
+        String suffixName = "";
+        int dotIndex = originalFilename.lastIndexOf(".");
+        if (dotIndex >= 0) {
+            suffixName = originalFilename.substring(dotIndex).toLowerCase();
+        }
+        Set<String> allowSuffix = new HashSet<>(Arrays.asList(".jpg",".jpeg",".png",".gif",".bmp",".webp"));
+        if (!allowSuffix.contains(suffixName)) {
+            resultMap.put("code", 400);
+            resultMap.put("msg", "仅支持图片格式:" + allowSuffix);
+            return resultMap;
+        }
+        if (file.getSize() > 10 * 1024 * 1024) {
+            resultMap.put("code", 400);
+            resultMap.put("msg", "文件大小不能超过10MB");
+            return resultMap;
+        }
+        String fileName = UUID.randomUUID().toString().replace("-", "") + suffixName;
+        FileUtils.copyInputStreamToFile(file.getInputStream(),new File(uploadPath + fileName));
+        resultMap.put("code", 0);
+        resultMap.put("msg", "上传成功");
+        Map<String,Object> data = new HashMap<>();
+        data.put("title", fileName);
+        data.put("src", attach+"/"+ fileName);
+        resultMap.put("data", data);
         return resultMap;
     }
 

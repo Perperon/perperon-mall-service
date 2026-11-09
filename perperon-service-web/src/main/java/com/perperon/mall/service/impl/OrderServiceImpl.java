@@ -1,10 +1,12 @@
 package com.perperon.mall.service.impl;
 
 import com.github.pagehelper.PageInfo;
+import com.perperon.mall.common.response.CommonResult;
 import com.perperon.mall.mapper.OrderMapper;
 import com.perperon.mall.pojo.Order;
 import com.perperon.mall.service.OrderService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -30,5 +32,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public PageInfo listByPage(Map<String, Object> params) {
         return new PageInfo(orderMapper.listOrderByPage(params));
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public CommonResult<Order> updateStatus(Order order) {
+        orderMapper.updateByPrimaryKeySelective(order);
+        return CommonResult.success(order, "更新成功");
     }
 }

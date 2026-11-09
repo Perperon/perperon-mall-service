@@ -65,4 +65,25 @@
             </if>
         </where>
     </select>
+
+    <select id="countOrder" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM pp_order
+    </select>
+
+    <select id="countTodayOrder" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM pp_order WHERE DATE(created) = CURDATE()
+    </select>
+
+    <select id="sumOrderPrice" resultType="java.lang.Double">
+        SELECT IFNULL(SUM(order_price), 0) FROM pp_order
+    </select>
+
+    <select id="orderTrend" resultType="java.util.Map">
+        SELECT DATE_FORMAT(created, '%m-%d') AS orderDate,
+               COUNT(*) AS orderCount
+        FROM pp_order
+        WHERE created &gt;= DATE_SUB(CURDATE(), INTERVAL 6 DAY)
+        GROUP BY DATE_FORMAT(created, '%m-%d')
+        ORDER BY MIN(created)
+    </select>
 </mapper>

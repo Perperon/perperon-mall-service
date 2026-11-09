@@ -4841,7 +4841,7 @@ INSERT INTO `pp_menu` VALUES ('ab736f3d-496e-11ef-9c6a-80e82cda4197', '商品添
 INSERT INTO `pp_menu` VALUES ('b1e4fb5c-2d42-11ef-b6ec-80e82cda4197', '角色列表', 'role:list', '/auth/role/index', 'role_list', '/role/list', b'1', 'C', '66434385-2d26-11ef-b6ec-80e82cda4197', '2024-06-18 11:54:14', '', 2, 2);
 INSERT INTO `pp_menu` VALUES ('bab9f995-2794-11af-960f-80e82cda4198', '商品管理', 'product', '', 'product', '/product', b'1', 'N', NULL, '2024-05-20 10:38:55', NULL, 1, 2);
 INSERT INTO `pp_menu` VALUES ('bab9f995-2794-11ef-920f-80e82cda4197', '用户管理', 'account', '', 'user', '/account', b'1', 'N', NULL, '2024-06-11 09:48:32', NULL, 1, 3);
-INSERT INTO `pp_menu` VALUES ('bab9f995-2794-11ef-920f-80e82cda4198', '商品列表', 'puduct:list', '/product/index', 'product_list', '/product/list', b'1', 'C', 'bab9f995-2794-11af-960f-80e82cda4198', '2024-06-03 22:25:50', NULL, 2, 2);
+INSERT INTO `pp_menu` VALUES ('bab9f995-2794-11ef-920f-80e82cda4198', '商品列表', 'product:list', '/product/index', 'product_list', '/product/list', b'1', 'C', 'bab9f995-2794-11af-960f-80e82cda4198', '2024-06-03 22:25:50', NULL, 2, 2);
 INSERT INTO `pp_menu` VALUES ('bbc113e4-44e3-11ef-b4f9-80e82cda4197', '字典类型', 'dictionary:type:list', '/dictionary/type/index', 'dictionary_type', '/dictionary/type/list', b'1', 'C', '67e9a508-3841-11ef-90e3-80e82cda4197', '2024-07-18 16:57:15', 'f54963d8-15a3-11ef-a15d-d8bbc147c16b', 2, 2);
 INSERT INTO `pp_menu` VALUES ('c1afd496-496e-11ef-9c6a-80e82cda4197', '商品修改', 'product:update', '/product/components/ProductEdit', 'edit', '/product/edit', b'1', 'C', 'bab9f995-2794-11ef-920f-80e82cda4198', '2024-07-24 11:42:31', 'f54963d8-15a3-11ef-a15d-d8bbc147c16b', 3, 2);
 INSERT INTO `pp_menu` VALUES ('c59a854a-2794-11ef-920f-80e82cda4197', '用户列表', 'account:list', '/account/index', 'user_list', '/account/list', b'1', 'C', 'bab9f995-2794-11ef-920f-80e82cda4197', '2024-06-11 09:48:50', '', 2, 1);
@@ -5172,3 +5172,13 @@ INSERT INTO `pp_roles` VALUES ('93ed1de2-2d48-11ef-b6ec-80e82cda4197', 'dept', '
 INSERT INTO `pp_roles` VALUES ('d8705bf2-2d47-11ef-b6ec-80e82cda4197', 'system', '超级管理员', b'1', '2024-07-15 11:28:31', 'f54963d8-15a3-11ef-a15d-d8bbc147c16b', 'f54963d8-15a3-11ef-a15d-d8bbc147c16b', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+-- ============ 第二阶段新增：物流管理 / 日志管理菜单与授权 ============
+INSERT INTO pp_menu VALUES ('4786fcb7-5932-4a08-973e-baecfcc3455c', '物流管理', 'logistics', '', 'logistics', '/logistics', b'1', 'N', '', '2026-10-28 10:00:00', 'f54963d8-15a3-11ef-a15d-d8bbc147c16b', 1, 5);
+INSERT INTO pp_menu VALUES ('bbb84594-4914-44fc-b791-acea65cc0560', '物流列表', 'logistics:list', '/logistics/index', 'logistics', '/logistics/list', b'1', 'C', '4786fcb7-5932-4a08-973e-baecfcc3455c', '2026-10-28 10:00:00', 'f54963d8-15a3-11ef-a15d-d8bbc147c16b', 2, 1);
+INSERT INTO pp_menu VALUES ('35146611-4ea2-4b67-ae2d-a9a1f1bb8758', '日志管理', 'logs', '', 'logs', '/logs', b'1', 'N', '', '2026-10-28 10:00:00', 'f54963d8-15a3-11ef-a15d-d8bbc147c16b', 1, 6);
+INSERT INTO pp_menu VALUES ('88480bff-c8f3-4938-b5c3-660ca3a9844d', '日志列表', 'logs:list', '/logs/index', 'logs', '/logs/list', b'1', 'C', '35146611-4ea2-4b67-ae2d-a9a1f1bb8758', '2026-10-28 10:00:00', 'f54963d8-15a3-11ef-a15d-d8bbc147c16b', 2, 1);
+INSERT INTO pp_role_menu VALUES ('08a3bb46-cec8-4db7-aaac-a46ee26ff5de', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', '4786fcb7-5932-4a08-973e-baecfcc3455c', '2026-10-28 10:00:00', 'f54963d8-15a3-11ef-a15d-d8bbc147c16b');
+INSERT INTO pp_role_menu VALUES ('0ef9fcdc-40d2-4616-84ff-f80c93533cb2', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', 'bbb84594-4914-44fc-b791-acea65cc0560', '2026-10-28 10:00:00', 'f54963d8-15a3-11ef-a15d-d8bbc147c16b');
+INSERT INTO pp_role_menu VALUES ('2a5c635e-284f-49b9-a793-6b2b3ee0be65', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', '35146611-4ea2-4b67-ae2d-a9a1f1bb8758', '2026-10-28 10:00:00', 'f54963d8-15a3-11ef-a15d-d8bbc147c16b');
+INSERT INTO pp_role_menu VALUES ('b41afcb7-e4c1-4214-bc4a-8f0cb60b2743', 'd8705bf2-2d47-11ef-b6ec-80e82cda4197', '88480bff-c8f3-4938-b5c3-660ca3a9844d', '2026-10-28 10:00:00', 'f54963d8-15a3-11ef-a15d-d8bbc147c16b');

@@ -28,13 +28,8 @@ public class LogsServiceImpl implements LogsService {
         return logsMapper;
     }
 
-    /**
-     * 数据偏多，使用redis优化查询性能
-     * @param params
-     * @return
-     */
     @Override
     public PageInfo listByPage(Map<String, Object> params) {
-        return null;
+        return new PageInfo(logsMapper.listLogsByPage(params));
     }
 }

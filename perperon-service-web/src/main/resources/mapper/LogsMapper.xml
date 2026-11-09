@@ -11,6 +11,21 @@
     </resultMap>
 
     <sql id="basic_list">
-        a.id,a.name, a.type, a.content, a.user_id, a.created
+        a.id, a.name, a.type, a.content, a.user_id, a.created
     </sql>
+
+    <select id="listLogsByPage" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="basic_list" />
+        from pp_logs a
+        <where>
+            <if test="name != null and name != ''">
+                and a.name like concat('%',#{name},'%')
+            </if>
+            <if test="type != null and type != ''">
+                and a.type = #{type}
+            </if>
+        </where>
+        order by a.created desc
+    </select>
 </mapper>

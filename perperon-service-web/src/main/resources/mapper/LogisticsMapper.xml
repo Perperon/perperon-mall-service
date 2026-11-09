@@ -18,7 +18,18 @@
     </sql>
 
     <select id="listLogisticsByPage" resultMap="BaseResultMap" parameterType="map">
-
+        select
+        <include refid="basic_list" />
+        from pp_logistics a
+        <where>
+            <if test="orderId != null and orderId != ''">
+                and a.order_id = #{orderId}
+            </if>
+            <if test="logisticsNo != null and logisticsNo != ''">
+                and a.logistics_no like concat('%',#{logisticsNo},'%')
+            </if>
+        </where>
+        order by a.created desc
     </select>
 
     <select id="getByLogisticsNo" resultMap="BaseResultMap" parameterType="string">

@@ -1,5 +1,6 @@
 package com.perperon.mall.service.impl;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.github.pagehelper.PageInfo;
 import com.perperon.mall.common.response.CommonResult;
 import com.perperon.mall.mapper.ProductAttachMapper;
@@ -52,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
         int insertCount = getMapper().insert(obj);
         if (insertCount > 0) {
             //添加商品的附件以及属性参数
-            if (obj.getAttachList().size() > 0) {
+            if (CollectionUtil.isNotEmpty(obj.getAttachList())) {
                 List<ProductAttach> attachList = obj.getAttachList().stream()
                         .map(attach -> {
                             attach.setProductId(obj.getId());
@@ -61,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
                         }).collect(Collectors.toList());
                 productAttachMapper.saveList(attachList);
             }
-        if(obj.getPublicParamList().size() > 0){
+        if(CollectionUtil.isNotEmpty(obj.getPublicParamList())){
             List<ProductParam> paramList = obj.getPublicParamList().stream()
                     .map(param -> {
                         param.setProductId(obj.getId());
@@ -78,7 +79,7 @@ public class ProductServiceImpl implements ProductService {
     public CommonResult<Product> update(Product obj){
         //修改商品的附件以及属性参数
         productAttachMapper.deleteByProductId(obj.getId());
-        if (obj.getAttachList().size() > 0) {
+        if (CollectionUtil.isNotEmpty(obj.getAttachList())) {
             List<ProductAttach> attachList = obj.getAttachList().stream()
                     .map(attach -> {
                         attach.setId(null);
@@ -91,7 +92,7 @@ public class ProductServiceImpl implements ProductService {
             productAttachMapper.saveList(attachList);
         }
         productParamMapper.deleteByProductId(obj.getId());
-        if(obj.getPublicParamList().size() > 0){
+        if(CollectionUtil.isNotEmpty(obj.getPublicParamList())){
             List<ProductParam> paramList = obj.getPublicParamList().stream()
                     .map(param -> {
                         param.setId(null);

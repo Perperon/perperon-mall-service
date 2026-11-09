@@ -1,5 +1,6 @@
 package com.perperon.mall.service;
 
+import com.perperon.mall.common.response.CommonResult;
 import com.perperon.mall.pojo.Order;
 
 /**
@@ -8,4 +9,5 @@ import com.perperon.mall.pojo.Order;
  * @apiNote
  */
 public interface OrderService extends BaseService<Order>{
+    CommonResult<Order> updateStatus(Order order);
 }

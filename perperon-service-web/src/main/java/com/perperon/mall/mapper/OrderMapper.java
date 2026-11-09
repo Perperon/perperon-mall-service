@@ -14,4 +14,12 @@ import java.util.Map;
 public interface OrderMapper extends Mapper<Order> {
 
     List<Order> listOrderByPage(Map<String,Object> params);
+
+    Long countOrder();
+
+    Long countTodayOrder();
+
+    Double sumOrderPrice();
+
+    List<Map<String,Object>> orderTrend();
 }

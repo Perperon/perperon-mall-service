@@ -75,3 +75,11 @@ secure:
 serverConfig:
   attach: /attach
   uploadPath: E:/files/download/
+
+# MinIO 对象存储配置（暂未启用，因当前无 MinIO 服务）
+#minio:
+#  enabled: false
+#  endpoint: http://localhost:9000
+#  accessKey: minioadmin
+#  secretKey: minioadmin
+#  bucket: mall
